@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <title>Neon Runner</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body {
+      background: #0a0a1a;
+      color: #fff;
+      font-family: 'Montserrat', Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      overflow: hidden;
+    }
+    h1 {
+      margin-bottom: 10px;
+      font-size: 2rem;
+      color: #38bdf8;
+      letter-spacing: 1px;
+      text-shadow: 0 0 12px #38bdf8cc;
+    }
+    #neon-canvas {
+      background: linear-gradient(180deg, #181f2c 0%, #0a0a1a 100%);
+      border: 3px solid #38bdf8;
+      border-radius: 18px;
+      box-shadow: 0 4px 32px #38bdf866;
+      display: block;
+      margin-bottom: 10px;
+    }
+    #score {
+      font-size: 1.2rem;
+      margin-bottom: 10px;
+      color: #bfc9d1;
+      text-shadow: 0 0 8px #38bdf8cc;
+    }
+    #restartBtn {
+      padding: 10px 28px;
+      background: #38bdf8;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      font-weight: 700;
+      cursor: pointer;
+      margin-top: 10px;
+      display: none;
+      transition: background 0.2s;
+      box-shadow: 0 2px 12px #38bdf866;
+    }
+    #restartBtn:hover {
+      background: #1a2746;
+    }
+    @media (max-width: 600px) {
+      #neon-canvas {
+        width: 90vw !important;
+        height: 60vw !important;
+        max-width: 400px;
+        max-height: 270px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <h1>Neon Runner</h1>
+  <div id="score">Счёт: 0</div>
+  <canvas id="neon-canvas" width="600" height="320"></canvas>
+  <button id="restartBtn">Заново</button>
+  <script>
+    const canvas = document.getElementById('neon-canvas');
+    const ctx = canvas.getContext('2d');
+    const scoreDiv = document.getElementById('score');
+    const restartBtn = document.getElementById('restartBtn');
+
+    // Игрок
+    const player = {
+      x: 100,
+      y: 220,
+      r: 22,
+      vy: 0,
+      jump: -11,
+      gravity: 0.6,
+      onGround: true,
+      color: "#38bdf8"
+    };
+
+    // Препятствия
+    let obstacles = [];
+    let obstacleTimer = 0;
+    let obstacleInterval = 1100;
+    let speed = 5;
+    let score = 0;
+    let best = 0;
+    let gameOver = false;
+    let started = false;
+    let neonColors = ["#38bdf8","#fbbf24","#10b981","#ef4444","#a78bfa","#f472b6","#f59e42"];
+    let colorIndex = 0;
+
+    function resetGame() {
+      player.y = 220;
+      player.vy = 0;
+      player.onGround = true;
+      obstacles = [];
+      obstacleTimer = 0;
+      obstacleInterval = 1100;
+      speed = 5;
+      score = 0;
+      colorIndex = 0;
+      gameOver = false;
+      started = false;
+      player.color = neonColors[0];
+      scoreDiv.textContent = "Счёт: 0";
+      restartBtn.style.display = 'none';
+      requestAnimationFrame(loop);
+    }
+
+    function drawPlayer() {
+      ctx.save();
+      ctx.shadowColor = player.color;
+      ctx.shadowBlur = 24;
+      ctx.beginPath();
+      ctx.arc(player.x, player.y, player.r, 0, Math.PI*2);
+      ctx.fillStyle = player.color;
+      ctx.fill();
+      ctx.shadowBlur = 0;
+      ctx.restore();
+      // Блик
+      ctx.save();
+      ctx.globalAlpha = 0.18;
+      ctx.beginPath();
+      ctx.arc(player.x-7, player.y-7, player.r/2, 0, Math.PI*2);
+      ctx.fillStyle = "#fff";
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function drawObstacles() {
+      obstacles.forEach(o => {
+        ctx.save();
+        ctx.shadowColor = o.color;
+        ctx.shadowBlur = 16;
+        ctx.fillStyle = o.color;
+        ctx.fillRect(o.x, o.y, o.w, o.h);
+        ctx.shadowBlur = 0;
+        ctx.restore();
+      });
+    }
+
+    function drawGround() {
+      ctx.save();
+      ctx.shadowColor = neonColors[colorIndex];
+      ctx.shadowBlur = 16;
+      ctx.fillStyle = "#232b3e";
+      ctx.fillRect(0, 242, canvas.width, 12);
+      ctx.shadowBlur = 0;
+      ctx.restore();
+    }
+
+    function updatePlayer() {
+      player.vy += player.gravity;
+      player.y += player.vy;
+      if (player.y + player.r > 242) {
+        player.y = 242 - player.r;
+        player.vy = 0;
+        player.onGround = true;
+      } else {
+        player.onGround = false;
+      }
+    }
+
+    function spawnObstacle() {
+      let h = 32 + Math.random()*38;
+      let w = 18 + Math.random()*22;
+      let y = 242 - h;
+      let color = neonColors[colorIndex];
+      obstacles.push({x: canvas.width+10, y, w, h, color});
+    }
+
+    function updateObstacles() {
+      obstacles.forEach(o => o.x -= speed);
+      if (obstacles.length && obstacles[0].x + obstacles[0].w < 0) obstacles.shift();
+    }
+
+    function checkCollision() {
+      for (let o of obstacles) {
+        // Круг-прямоугольник
+        let cx = Math.max(o.x, Math.min(player.x, o.x+o.w));
+        let cy = Math.max(o.y, Math.min(player.y, o.y+o.h));
+        let dx = player.x - cx, dy = player.y - cy;
+        if (dx*dx + dy*dy < player.r*player.r) {
+          gameOver = true;
+        }
+      }
+    }
+
+    function updateScore() {
+      for (let o of obstacles) {
+        if (!o.passed && o.x + o.w < player.x-player.r) {
+          o.passed = true;
+          score++;
+          scoreDiv.textContent = "Счёт: " + score;
+          // Каждые 10 очков — ускорение и смена цвета
+          if (score % 10 === 0) {
+            speed += 0.7;
+            obstacleInterval = Math.max(500, obstacleInterval-60);
+            colorIndex = (colorIndex+1)%neonColors.length;
+            player.color = neonColors[colorIndex];
+          }
+        }
+      }
+    }
+
+    function loop(ts) {
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+
+      drawGround();
+      drawObstacles();
+      drawPlayer();
+
+      if (!gameOver && started) {
+        updatePlayer();
+        updateObstacles();
+        checkCollision();
+        updateScore();
+
+        if (!obstacleTimer || ts - obstacleTimer > obstacleInterval) {
+          spawnObstacle();
+          obstacleTimer = ts;
+        }
+      }
+
+      if (gameOver) {
+        ctx.save();
+        ctx.globalAlpha = 0.7;
+        ctx.fillStyle = '#0a0a1a';
+        ctx.fillRect(0,0,canvas.width,canvas.height);
+        ctx.restore();
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 2rem Montserrat, Arial, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('Игра окончена!', canvas.width/2, canvas.height/2-10);
+        ctx.font = '1.1rem Montserrat, Arial, sans-serif';
+        ctx.fillText('Счёт: ' + score, canvas.width/2, canvas.height/2+24);
+        restartBtn.style.display = 'inline-block';
+        if (score > best) best = score;
+        ctx.font = '1rem Montserrat, Arial, sans-serif';
+        ctx.fillText('Рекорд: ' + best, canvas.width/2, canvas.height/2+50);
+        return;
+      }
+
+      requestAnimationFrame(loop);
+    }
+
+    function jump() {
+      if (!started) {
+        started = true;
+        obstacleTimer = 0;
+        obstacles = [];
+        score = 0;
+        scoreDiv.textContent = "Счёт: 0";
+      }
+      if (player.onGround) {
+        player.vy = player.jump;
+      }
+    }
+
+    document.addEventListener('keydown', e => {
+      if (e.key === ' ' || e.key === 'ArrowUp') jump();
+      if (gameOver && e.key === 'Enter') resetGame();
+    });
+    canvas.addEventListener('mousedown', jump);
+    canvas.addEventListener('touchstart', jump);
+    restartBtn.onclick = resetGame;
+
+    // Первый запуск
+    resetGame();
+  </script>
+</body>
+</html>
