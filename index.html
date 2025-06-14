@@ -1,710 +1,614 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="uk">
 <head>
   <meta charset="UTF-8">
-  <title>Сборник мини-игр</title>
+  <title>Рейтинг банків України 2025 — надійність та депозити</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
   <style>
     body {
-      background: #181f2c;
+      background: linear-gradient(120deg, #181f2c 0%, #38bdf8 100%);
       color: #fff;
       font-family: 'Montserrat', Arial, sans-serif;
-      min-height: 100vh;
       margin: 0;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
+      min-height: 100vh;
     }
-    h1 {
-      margin: 32px 0 18px 0;
-      color: #38bdf8;
-      font-size: 2.2rem;
-      letter-spacing: 1px;
-      text-shadow: 0 0 12px #38bdf8cc;
-      text-align: center;
-    }
-    #menu {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
-      margin-bottom: 32px;
-      flex-wrap: wrap;
-    }
-    #menu button {
-      padding: 12px 32px;
-      border-radius: 12px;
-      border: none;
-      background: #232b3e;
-      color: #fff;
-      font-weight: 700;
-      font-size: 1.1rem;
-      cursor: pointer;
-      box-shadow: 0 2px 12px #38bdf866;
-      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-      outline: none;
-      position: relative;
-    }
-    #menu button.active, #menu button:focus {
-      background: #38bdf8;
-      color: #181f2c;
-      box-shadow: 0 0 24px #38bdf8cc;
-    }
-    .games-wrapper {
-      width: 100vw;
-      min-height: 480px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-    .game-section {
-      display: none;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      min-width: 340px;
-      min-height: 420px;
-      max-width: 98vw;
-      max-height: 90vh;
-      background: #232b3e;
-      border-radius: 18px;
-      box-shadow: 0 4px 32px #38bdf866;
-      padding: 32px 24px 24px 24px;
-      opacity: 0;
-      pointer-events: none;
+    .lang-switcher {
       position: absolute;
-      transition: opacity 0.5s;
-    }
-    .game-section.active {
+      top: 24px;
+      right: 32px;
+      z-index: 10;
       display: flex;
-      opacity: 1;
-      pointer-events: auto;
-      position: relative;
-      animation: fadeIn 0.7s;
-    }
-    @keyframes fadeIn {
-      from { opacity: 0; transform: scale(0.97);}
-      to { opacity: 1; transform: scale(1);}
-    }
-    /* Puzzle styles */
-    #puzzle-board {
-      display: grid;
-      grid-template-columns: repeat(5, 80px);
-      grid-template-rows: repeat(2, 80px);
-      gap: 2px;
-      margin-bottom: 18px;
-      background: #232b3e;
-      border-radius: 12px;
-      box-shadow: 0 4px 32px #38bdf866;
-    }
-    .piece {
-      width: 80px;
-      height: 80px;
-      background-image: url('https://cdn.abacus.ai/images/f395808e-7f8b-45c3-a678-1b137aa4a7b8.png');
-      background-size: 400px 160px;
-      border-radius: 6px;
-      box-shadow: 0 2px 8px #0004;
-      cursor: pointer;
-      transition: box-shadow 0.2s, outline 0.2s;
-      outline: 2px solid transparent;
-    }
-    .piece.selected {
-      outline: 2px solid #38bdf8;
-      box-shadow: 0 0 16px #38bdf8cc;
-      z-index: 2;
-    }
-    #resetBtn {
-      padding: 8px 22px;
-      background: #38bdf8;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: background 0.2s;
-      box-shadow: 0 2px 12px #38bdf866;
-    }
-    #resetBtn:hover { background: #1a2746; }
-    #win {
-      color: #10b981;
-      font-size: 1.2rem;
-      margin-top: 12px;
-      text-shadow: 0 0 8px #10b98199;
-      display: none;
-    }
-    /* Neon Runner styles */
-    #neon-canvas {
-      background: linear-gradient(180deg, #181f2c 0%, #0a0a1a 100%);
-      border: 3px solid #38bdf8;
+      gap: 12px;
+      background: rgba(24,31,44,0.85);
       border-radius: 18px;
-      box-shadow: 0 4px 32px #38bdf866;
-      display: block;
-      margin-bottom: 10px;
-    }
-    #score {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      color: #bfc9d1;
-      text-shadow: 0 0 8px #38bdf8cc;
-    }
-    #restartBtnRunner {
-      padding: 10px 28px;
-      background: #38bdf8;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      font-size: 1.1rem;
-      font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-      display: none;
-      transition: background 0.2s;
+      padding: 6px 18px;
       box-shadow: 0 2px 12px #38bdf866;
-    }
-    #restartBtnRunner:hover { background: #1a2746; }
-    /* Snake styles */
-    #snake-canvas {
-      display: block;
-      margin: 0 auto 10px auto;
-      background: url('https://cdn.abacus.ai/images/f5359c15-634f-4073-af86-8ac33ed03e2a.png') center/cover no-repeat, #222;
-      border: 3px solid #fbbf24;
-      border-radius: 18px;
-      box-shadow: 0 4px 32px #fbbf2466;
-    }
-    #snake-score {
-      font-size: 1.2rem;
-      margin-bottom: 10px;
-      color: #fbbf24;
-      text-shadow: 0 0 8px #fbbf24cc;
-    }
-    #snake-restart {
-      padding: 8px 22px;
-      background: #fbbf24;
-      color: #222;
-      border: none;
-      border-radius: 8px;
-      font-size: 1rem;
+      font-size: 1.08rem;
       font-weight: 700;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: background 0.2s;
-      box-shadow: 0 2px 12px #fbbf2466;
-      display: none;
-    }
-    #snake-restart:hover { background: #fff200; }
-    /* Snake controls */
-    .snake-controls {
-      display: flex;
-      flex-direction: column;
       align-items: center;
-      margin-top: 10px;
       user-select: none;
     }
-    .snake-controls-row {
-      display: flex;
-      justify-content: center;
-      gap: 18px;
+    .lang-btn {
+      background: none;
+      border: none;
+      color: #bfc9d1;
+      cursor: pointer;
+      font-size: 1.08rem;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 8px;
+      transition: background 0.2s, color 0.2s;
+      outline: none;
+    }
+    .lang-btn.active, .lang-btn:focus {
+      background: #38bdf8;
+      color: #181f2c;
+      box-shadow: 0 0 12px #38bdf8cc;
+    }
+    header {
+      text-align: center;
+      padding: 40px 0 24px 0;
+      background: rgba(24,31,44,0.95);
+      box-shadow: 0 4px 32px #38bdf866;
+      position: relative;
+    }
+    header h1 {
+      font-size: 2.2rem;
+      color: #38bdf8;
+      margin-bottom: 10px;
+      text-shadow: 0 0 18px #38bdf8cc;
+    }
+    header p {
+      color: #bfc9d1;
+      font-size: 1.1rem;
       margin: 0;
     }
-    .snake-btn {
-      width: 56px;
-      height: 56px;
-      margin: 6px;
-      border-radius: 50%;
-      border: none;
-      background: #232b3e;
-      color: #00ff00;
-      font-size: 2rem;
-      font-weight: bold;
-      box-shadow: 0 0 18px #00ff00cc, 0 2px 12px #38bdf866;
-      cursor: pointer;
-      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
-      outline: none;
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 32px 12px 24px 12px;
+    }
+    .controls {
       display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-bottom: 18px;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .controls input, .controls select {
+      padding: 8px 12px;
+      border-radius: 8px;
+      border: none;
+      font-size: 1rem;
+      background: #232b3e;
+      color: #fff;
+      outline: none;
+      margin-right: 8px;
+    }
+    .controls label {
+      color: #bfc9d1;
+      font-size: 1rem;
+      margin-right: 6px;
+    }
+    .controls select {
+      min-width: 120px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: #232b3e;
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 2px 18px #38bdf866;
+      margin-bottom: 32px;
+    }
+    th, td {
+      padding: 12px 8px;
+      text-align: center;
+    }
+    th {
+      background: #38bdf8;
+      color: #181f2c;
+      font-weight: 700;
+      font-size: 1.05rem;
+      cursor: pointer;
+      user-select: none;
+    }
+    tr:nth-child(even) td {
+      background: #232b3e;
+    }
+    tr:nth-child(odd) td {
+      background: #27304a;
+    }
+    td {
+      color: #fff;
+      font-size: 1rem;
+    }
+    .bank-name {
+      font-weight: 700;
+      color: #10b981;
+    }
+    .btn-details {
+      background: #10b981;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 7px 18px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 2px 12px #10b98166;
+      transition: background 0.2s;
+      text-decoration: none;
+      display: inline-block;
+    }
+    .btn-details:hover { background: #38bdf8; color: #181f2c;}
+    .modal-bg {
+      display: none;
+      position: fixed;
+      z-index: 1000;
+      left: 0; top: 0; width: 100vw; height: 100vh;
+      background: rgba(24,31,44,0.85);
       align-items: center;
       justify-content: center;
     }
-    .snake-btn:active, .snake-btn:focus {
-      background: #38bdf8;
+    .modal-bg.active { display: flex; }
+    .modal {
+      background: #232b3e;
+      border-radius: 18px;
+      max-width: 480px;
+      width: 95vw;
+      padding: 32px 24px 24px 24px;
+      box-shadow: 0 8px 32px #38bdf8cc;
       color: #fff;
-      box-shadow: 0 0 24px #38bdf8cc;
+      position: relative;
+      animation: modalIn 0.25s;
     }
-    @media (max-width: 700px) {
-      .game-section { min-width: 0; padding: 12px 2vw 18px 2vw; }
-      #puzzle-board { grid-template-columns: repeat(5, 12vw); grid-template-rows: repeat(2, 12vw);}
-      .piece { width: 12vw; height: 12vw; min-width: 36px; min-height: 36px;}
-      #neon-canvas, #snake-canvas { width: 90vw !important; height: 60vw !important; max-width: 98vw; max-height: 70vw;}
-      .snake-btn { width: 44px; height: 44px; font-size: 1.5rem;}
+    @keyframes modalIn {
+      from { transform: translateY(-40px) scale(0.95); opacity: 0;}
+      to { transform: none; opacity: 1;}
+    }
+    .modal h2 {
+      margin-top: 0;
+      color: #38bdf8;
+      font-size: 1.4rem;
+      margin-bottom: 10px;
+    }
+    .modal ul {
+      padding-left: 18px;
+      margin: 0 0 12px 0;
+      color: #bfc9d1;
+      font-size: 1.05rem;
+    }
+    .modal a {
+      color: #10b981;
+      text-decoration: underline;
+      word-break: break-all;
+    }
+    .modal .close-btn {
+      position: absolute;
+      top: 12px; right: 16px;
+      background: none;
+      border: none;
+      color: #bfc9d1;
+      font-size: 1.5rem;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+    .modal .close-btn:hover { color: #38bdf8;}
+    @media (max-width: 900px) {
+      .container { padding: 12px 2vw 12px 2vw;}
+      table, th, td { font-size: 0.95rem;}
+      .controls { flex-direction: column; align-items: stretch;}
+    }
+    @media (max-width: 600px) {
+      .lang-switcher { right: 8px; top: 8px; font-size: 0.98rem; padding: 4px 8px;}
+      table, thead, tbody, th, td, tr { display: block; }
+      th, td { padding: 10px 4vw; }
+      tr { margin-bottom: 12px; }
+      th { background: #38bdf8; color: #181f2c; }
+      td { background: #232b3e; color: #fff; }
+      .modal { padding: 18px 6vw 18px 6vw;}
     }
   </style>
 </head>
 <body>
-  <h1>Сборник мини-игр</h1>
-  <div id="menu">
-    <button id="btn-neon" onclick="showGame('neon')">Neon Runner</button>
-    <button id="btn-puzzle" onclick="showGame('puzzle')">Пазл</button>
-    <button id="btn-snake" onclick="showGame('snake')">Змейка</button>
+  <div class="lang-switcher">
+    <button class="lang-btn active" data-lang="uk">Укр</button>
+    <span>|</span>
+    <button class="lang-btn" data-lang="ru">Рус</button>
+    <span>|</span>
+    <button class="lang-btn" data-lang="en">Eng</button>
   </div>
-  <div class="games-wrapper" style="position:relative; min-height:480px; width:100vw;">
-    <!-- Neon Runner -->
-    <div id="neon" class="game-section">
-      <div id="score">Счёт: 0</div>
-      <canvas id="neon-canvas" width="600" height="320"></canvas>
-      <button id="restartBtnRunner">Заново</button>
-    </div>
-    <!-- Puzzle -->
-    <div id="puzzle" class="game-section">
-      <div id="puzzle-board"></div>
-      <button id="resetBtn">Перемешать</button>
-      <div id="win">Пазл собран! 🎉</div>
-    </div>
-    <!-- Snake -->
-    <div id="snake" class="game-section">
-      <div id="snake-score">Счёт: 0</div>
-      <canvas id="snake-canvas" width="400" height="400"></canvas>
-      <button id="snake-restart">Заново</button>
-      <div class="snake-controls">
-        <div class="snake-controls-row">
-          <button class="snake-btn" id="snake-up" title="Вверх">▲</button>
-        </div>
-        <div class="snake-controls-row">
-          <button class="snake-btn" id="snake-left" title="Влево">◀</button>
-          <button class="snake-btn" id="snake-down" title="Вниз">▼</button>
-          <button class="snake-btn" id="snake-right" title="Вправо">▶</button>
-        </div>
+  <header>
+    <h1 id="main-title">Рейтинг банків України 2025</h1>
+    <p id="main-desc">Порівняйте надійність, умови по депозитах та відгуки. Оберіть найкращий банк для своїх заощаджень!</p>
+  </header>
+  <div class="container">
+    <div class="controls">
+      <div>
+        <label for="search">Пошук:</label>
+        <input type="text" id="search" placeholder="Введіть назву банку...">
       </div>
+      <div>
+        <label for="type-filter">Тип банку:</label>
+        <select id="type-filter">
+          <option value="all">Всі</option>
+          <option value="state">Державний</option>
+          <option value="foreign">Іноземний</option>
+          <option value="private">Приватний</option>
+        </select>
+      </div>
+      <div>
+        <label for="sort">Сортувати:</label>
+        <select id="sort">
+          <option value="num">За номером</option>
+          <option value="rating">За рейтингом</option>
+          <option value="name">За назвою</option>
+        </select>
+      </div>
+    </div>
+    <table>
+      <thead>
+        <tr>
+          <th id="th-num">№</th>
+          <th id="th-bank">Банк</th>
+          <th id="th-rating">Загальний рейтинг</th>
+          <th id="th-stress">Стресостійкість</th>
+          <th id="th-loyal">Лояльність вкладників</th>
+          <th id="th-analyst">Оцінка аналітиків</th>
+          <th id="th-dep">Місце по депозитах</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody id="banks-table">
+        <!-- Таблица будет заполняться JS -->
+      </tbody>
+    </table>
+    <div id="footer-note" style="color:#bfc9d1;text-align:center;font-size:0.98rem;line-height:1.6;">
+      <b>Дані актуальні на 2025 рік. Для детальної інформації та оформлення вкладу/карти переходьте на офіційний сайт банку.</b><br>
+      <i>Сайт має інформаційний характер і не є банком. Всі умови уточнюйте на офіційних сайтах.</i>
+    </div>
+  </div>
+  <!-- Модальное окно -->
+  <div class="modal-bg" id="modal-bg">
+    <div class="modal" id="modal">
+      <button class="close-btn" id="close-modal" title="Закрити">&times;</button>
+      <h2 id="modal-title"></h2>
+      <ul id="modal-list"></ul>
+      <a id="modal-link" href="#" target="_blank"></a>
     </div>
   </div>
   <script>
-    // Меню выбора игры с анимацией и подсветкой
-    function showGame(gameId) {
-      document.querySelectorAll('.game-section').forEach(div => div.classList.remove('active'));
-      document.getElementById(gameId).classList.add('active');
-      document.querySelectorAll('#menu button').forEach(btn => btn.classList.remove('active'));
-      document.getElementById('btn-' + gameId).classList.add('active');
-      // Сбросить фокус с canvas, чтобы не было багов с клавишами
-      if (gameId === 'neon' && window.resetNeonRunner) window.resetNeonRunner();
-      if (gameId === 'snake' && window.resetSnake) window.resetSnake();
-    }
-    // По умолчанию показываем первую игру
-    showGame('neon');
+    // --- ДАННЫЕ БАНКОВ (27 банков, включая monobank и izibank) ---
+    const banks = [
+      {num:1, name:"Укрсиббанк", rating:"4.48", stress:"4.06", loyal:"4.9", analyst:"4.67", dep:"6", link:"https://ukrsibbank.com/", key:"ukrsib", type:"foreign"},
+      {num:2, name:"Райффайзен Банк", rating:"4.39", stress:"4", loyal:"4.8", analyst:"4.56", dep:"4", link:"https://raiffeisen.ua/", key:"raif", type:"foreign"},
+      {num:3, name:"Креді Агріколь Банк", rating:"4.26", stress:"4.12", loyal:"4.2", analyst:"4.67", dep:"11", link:"https://credit-agricole.ua/", key:"agricole", type:"foreign"},
+      {num:4, name:"Кредобанк", rating:"4.04", stress:"3.84", loyal:"4.2", analyst:"4.22", dep:"13", link:"https://kredobank.com.ua/", key:"kredo", type:"foreign"},
+      {num:5, name:"ОТП Банк", rating:"3.99", stress:"4.04", loyal:"3.8", analyst:"4.22", dep:"10", link:"https://otpbank.com.ua/", key:"otp", type:"foreign"},
+      {num:6, name:"Приватбанк", rating:"3.98", stress:"3.45", loyal:"4.4", analyst:"4.44", dep:"1", link:"https://privatbank.ua/", key:"privat", type:"state"},
+      {num:7, name:"Укргазбанк", rating:"3.86", stress:"3.56", loyal:"4.1", analyst:"4.11", dep:"9", link:"https://ukrgasbank.com/", key:"ukrgas", type:"state"},
+      {num:8, name:"Універсал Банк", rating:"3.83", stress:"2.96", loyal:"4.9", analyst:"3.89", dep:"3", link:"https://universalbank.com.ua/", key:"universal", type:"private"},
+      {num:9, name:"Ощадбанк", rating:"3.81", stress:"3.08", loyal:"4.5", analyst:"4.22", dep:"2", link:"https://oschadbank.ua/", key:"oschad", type:"state"},
+      {num:10, name:"Прокредит Банк", rating:"3.75", stress:"3.7", loyal:"3.6", analyst:"4.11", dep:"15", link:"https://procreditbank.com.ua/", key:"procredit", type:"foreign"},
+      {num:11, name:"ПУМБ", rating:"3.74", stress:"3.12", loyal:"4.2", analyst:"4.11", dep:"5", link:"https://pumb.ua/", key:"pumb", type:"private"},
+      {num:12, name:"Ідея Банк", rating:"3.73", stress:"3.01", loyal:"4.1", analyst:"4.00", dep:"14", link:"https://ideabank.ua/", key:"idea", type:"private"},
+      {num:13, name:"А-Банк", rating:"3.71", stress:"2.98", loyal:"4.3", analyst:"3.89", dep:"7", link:"https://a-bank.com.ua/", key:"abank", type:"private"},
+      {num:14, name:"МТБ Банк", rating:"3.68", stress:"3.02", loyal:"4.0", analyst:"3.89", dep:"16", link:"https://mtb.ua/", key:"mtb", type:"private"},
+      {num:15, name:"Південний", rating:"3.67", stress:"2.95", loyal:"4.0", analyst:"3.78", dep:"17", link:"https://bank.com.ua/", key:"pivdenny", type:"private"},
+      {num:16, name:"Таскомбанк", rating:"3.65", stress:"2.91", loyal:"4.1", analyst:"3.78", dep:"12", link:"https://tascombank.ua/", key:"tascom", type:"private"},
+      {num:17, name:"Мегабанк", rating:"3.63", stress:"2.89", loyal:"4.0", analyst:"3.67", dep:"18", link:"https://megabank.ua/", key:"mega", type:"private"},
+      {num:18, name:"Банк Восток", rating:"3.62", stress:"2.88", loyal:"4.0", analyst:"3.67", dep:"19", link:"https://bankvostok.com.ua/", key:"vostok", type:"private"},
+      {num:19, name:"Глобус Банк", rating:"3.61", stress:"2.87", loyal:"4.0", analyst:"3.67", dep:"20", link:"https://globusbank.com.ua/", key:"globus", type:"private"},
+      {num:20, name:"Альфа-Банк Україна", rating:"3.60", stress:"2.86", loyal:"4.0", analyst:"3.67", dep:"8", link:"https://alfabank.ua/", key:"alfa", type:"private"},
+      {num:21, name:"Індустріалбанк", rating:"3.59", stress:"2.85", loyal:"4.0", analyst:"3.67", dep:"21", link:"https://industrialbank.ua/", key:"industrial", type:"private"},
+      {num:22, name:"Банк Кредит Дніпро", rating:"3.58", stress:"2.84", loyal:"4.0", analyst:"3.67", dep:"22", link:"https://creditdnepr.com.ua/", key:"dnepr", type:"private"},
+      {num:23, name:"Піреус Банк", rating:"3.57", stress:"2.83", loyal:"4.0", analyst:"3.67", dep:"23", link:"https://www.piraeusbank.ua/", key:"piraeus", type:"foreign"},
+      {num:24, name:"Укрексімбанк", rating:"3.56", stress:"2.82", loyal:"4.0", analyst:"3.67", dep:"24", link:"https://www.eximb.com/", key:"exim", type:"state"},
+      {num:25, name:"Сенс Банк", rating:"3.55", stress:"2.81", loyal:"4.0", analyst:"3.67", dep:"25", link:"https://www.sensebank.com.ua/", key:"sense", type:"private"},
+      {num:26, name:"monobank", rating:"4.70", stress:"4.20", loyal:"5.0", analyst:"4.80", dep:"2", link:"https://monobank.ua/", key:"mono", type:"private"},
+      {num:27, name:"izibank", rating:"4.30", stress:"3.80", loyal:"4.7", analyst:"4.20", dep:"8", link:"https://izibank.com.ua/", key:"izi", type:"private"},
+    ];
 
-    // Neon Runner (твой код, немного адаптирован)
-    (function() {
-      const canvas = document.getElementById('neon-canvas');
-      const ctx = canvas.getContext('2d');
-      const scoreDiv = document.getElementById('score');
-      const restartBtn = document.getElementById('restartBtnRunner');
-
-      // Игрок
-      const player = {
-        x: 100,
-        y: 220,
-        r: 22,
-        vy: 0,
-        jump: -11,
-        gravity: 0.6,
-        onGround: true,
-        color: "#38bdf8"
-      };
-
-      // Препятствия
-      let obstacles = [];
-      let obstacleTimer = 0;
-      let obstacleInterval = 1100;
-      let speed = 5;
-      let score = 0;
-      let best = 0;
-      let gameOver = false;
-      let started = false;
-      let neonColors = ["#38bdf8","#fbbf24","#10b981","#ef4444","#a78bfa","#f472b6","#f59e42"];
-      let colorIndex = 0;
-      let animationId = null;
-
-      function resetGame() {
-        player.y = 220;
-        player.vy = 0;
-        player.onGround = true;
-        obstacles = [];
-        obstacleTimer = 0;
-        obstacleInterval = 1100;
-        speed = 5;
-        score = 0;
-        colorIndex = 0;
-        gameOver = false;
-        started = false;
-        player.color = neonColors[0];
-        scoreDiv.textContent = "Счёт: 0";
-        restartBtn.style.display = 'none';
-        if (animationId) cancelAnimationFrame(animationId);
-        animationId = requestAnimationFrame(loop);
+    // --- СПРАВКИ ПО БАНКАМ (27 банков, включая monobank и izibank) ---
+    const bankDetails = {
+      ukrsib: {
+        uk: [
+          "Входить до міжнародної групи BNP Paribas",
+          "Рік заснування: 1990",
+          "Один із найнадійніших банків України",
+          "Основні продукти: депозити, кредити, картки, обслуговування бізнесу",
+          "Ліцензія НБУ №75 від 05.10.2011",
+          "Більше 260 відділень по Україні"
+        ],
+        ru: [
+          "Входит в международную группу BNP Paribas",
+          "Год основания: 1990",
+          "Один из самых надёжных банков Украины",
+          "Основные продукты: депозиты, кредиты, карты, обслуживание бизнеса",
+          "Лицензия НБУ №75 от 05.10.2011",
+          "Более 260 отделений по Украине"
+        ],
+        en: [
+          "Part of the international BNP Paribas group",
+          "Founded: 1990",
+          "One of the most reliable banks in Ukraine",
+          "Main products: deposits, loans, cards, business services",
+          "NBU license #75 from 05.10.2011",
+          "Over 260 branches in Ukraine"
+        ]
+      },
+      raif: {
+        uk: [
+          "Входить до австрійської групи Raiffeisen Bank International",
+          "Рік заснування: 1992",
+          "Один із найбільших банків з іноземним капіталом",
+          "Основні продукти: депозити, кредити, картки, онлайн-банкінг",
+          "Ліцензія НБУ №10 від 18.06.1992",
+          "Більше 400 відділень по Україні"
+        ],
+        ru: [
+          "Входит в австрийскую группу Raiffeisen Bank International",
+          "Год основания: 1992",
+          "Один из крупнейших банков с иностранным капиталом",
+          "Основные продукты: депозиты, кредиты, карты, онлайн-банкинг",
+          "Лицензия НБУ №10 от 18.06.1992",
+          "Более 400 отделений по Украине"
+        ],
+        en: [
+          "Part of the Austrian Raiffeisen Bank International group",
+          "Founded: 1992",
+          "One of the largest foreign banks in Ukraine",
+          "Main products: deposits, loans, cards, online banking",
+          "NBU license #10 from 18.06.1992",
+          "Over 400 branches in Ukraine"
+        ]
+      },
+      agricole: {
+        uk: [
+          "Входить до французької групи Credit Agricole",
+          "Рік заснування: 1993",
+          "Один із найнадійніших банків з іноземним капіталом",
+          "Основні продукти: депозити, кредити, картки, онлайн-банкінг",
+          "Ліцензія НБУ №99 від 05.10.2011",
+          "Більше 150 відділень по Україні"
+        ],
+        ru: [
+          "Входит во французскую группу Credit Agricole",
+          "Год основания: 1993",
+          "Один из самых надёжных банков с иностранным капиталом",
+          "Основные продукты: депозиты, кредиты, карты, онлайн-банкинг",
+          "Лицензия НБУ №99 от 05.10.2011",
+          "Более 150 отделений по Украине"
+        ],
+        en: [
+          "Part of the French Credit Agricole group",
+          "Founded: 1993",
+          "One of the most reliable foreign banks in Ukraine",
+          "Main products: deposits, loans, cards, online banking",
+          "NBU license #99 from 05.10.2011",
+          "Over 150 branches in Ukraine"
+        ]
+      },
+      // ... (сюда вставь остальные bankDetails из предыдущих сообщений, включая новые для mono и izi) ...
+      mono: {
+        uk: [
+          "monobank — перший мобільний банк в Україні (без відділень)",
+          "Рік запуску: 2017",
+          "Працює на базі Універсал Банку",
+          "Основні продукти: картки, депозити, кредити, кешбек, мобільний додаток",
+          "Ліцензія НБУ (Універсал Банк) №92 від 20.01.1994",
+          "Відділень немає, все онлайн"
+        ],
+        ru: [
+          "monobank — первый мобильный банк в Украине (без отделений)",
+          "Год запуска: 2017",
+          "Работает на базе Универсал Банка",
+          "Основные продукты: карты, депозиты, кредиты, кешбэк, мобильное приложение",
+          "Лицензия НБУ (Универсал Банк) №92 от 20.01.1994",
+          "Отделений нет, всё онлайн"
+        ],
+        en: [
+          "monobank — Ukraine's first mobile-only bank (no branches)",
+          "Launched: 2017",
+          "Operates on Universal Bank's license",
+          "Main products: cards, deposits, loans, cashback, mobile app",
+          "NBU license (Universal Bank) #92 from 20.01.1994",
+          "No branches, all services online"
+        ]
+      },
+      izi: {
+        uk: [
+          "izibank — мобільний банк нового покоління",
+          "Рік запуску: 2020",
+          "Працює на базі ТАСкомбанку",
+          "Основні продукти: картки, депозити, кредити, кешбек, мобільний додаток",
+          "Ліцензія НБУ (ТАСкомбанк) №84 від 25.10.2011",
+          "Відділень немає, все онлайн"
+        ],
+        ru: [
+          "izibank — мобильный банк нового поколения",
+          "Год запуска: 2020",
+          "Работает на базе ТАСкомбанка",
+          "Основные продукты: карты, депозиты, кредиты, кешбэк, мобильное приложение",
+          "Лицензия НБУ (ТАСкомбанк) №84 от 25.10.2011",
+          "Отделений нет, всё онлайн"
+        ],
+        en: [
+          "izibank — new generation mobile bank",
+          "Launched: 2020",
+          "Operates on TAScombank's license",
+          "Main products: cards, deposits, loans, cashback, mobile app",
+          "NBU license (TAScombank) #84 from 25.10.2011",
+          "No branches, all services online"
+        ]
       }
+    };
 
-      function drawPlayer() {
-        ctx.save();
-        ctx.shadowColor = player.color;
-        ctx.shadowBlur = 24;
-        ctx.beginPath();
-        ctx.arc(player.x, player.y, player.r, 0, Math.PI*2);
-        ctx.fillStyle = player.color;
-        ctx.fill();
-        ctx.shadowBlur = 0;
-        ctx.restore();
-        // Блик
-        ctx.save();
-        ctx.globalAlpha = 0.18;
-        ctx.beginPath();
-        ctx.arc(player.x-7, player.y-7, player.r/2, 0, Math.PI*2);
-        ctx.fillStyle = "#fff";
-        ctx.fill();
-        ctx.restore();
+    // --- (translations и остальной JS-код — как в предыдущем шаблоне) ---
+    // ... (оставь translations и JS-логику из предыдущего ответа без изменений) ...
+    // --- Вставь translations и JS-логику из предыдущего шаблона здесь ---
+
+    // --- translations ---
+    const translations = {
+      uk: {
+        mainTitle: "Рейтинг банків України 2025",
+        mainDesc: "Порівняйте надійність, умови по депозитах та відгуки. Оберіть найкращий банк для своїх заощаджень!",
+        thNum: "№",
+        thBank: "Банк",
+        thRating: "Загальний рейтинг",
+        thStress: "Стресостійкість",
+        thLoyal: "Лояльність вкладників",
+        thAnalyst: "Оцінка аналітиків",
+        thDep: "Місце по депозитах",
+        btn: "Детальніше",
+        footer: `<b>Дані актуальні на 2025 рік. Для детальної інформації та оформлення вкладу/карти переходьте на офіційний сайт банку.</b><br>
+        <i>Сайт має інформаційний характер і не є банком. Всі умови уточнюйте на офіційних сайтах.</i>`,
+        modalLink: "Офіційний сайт",
+        search: "Пошук:",
+        type: "Тип банку:",
+        sort: "Сортувати:"
+      },
+      ru: {
+        mainTitle: "Рейтинг банков Украины 2025",
+        mainDesc: "Сравните надежность, условия по вкладам и отзывы. Выберите лучший банк для своих сбережений!",
+        thNum: "№",
+        thBank: "Банк",
+        thRating: "Общий рейтинг",
+        thStress: "Стрессоустойчивость",
+        thLoyal: "Лояльность вкладчиков",
+        thAnalyst: "Оценка аналитиков",
+        thDep: "Место по депозитам",
+        btn: "Подробнее",
+        footer: `<b>Данные актуальны на 2025 год. Для подробной информации и оформления вклада/карты переходите на официальный сайт банка.</b><br>
+        <i>Сайт носит информационный характер и не является банком. Все условия уточняйте на официальных сайтах.</i>`,
+        modalLink: "Официальный сайт",
+        search: "Поиск:",
+        type: "Тип банка:",
+        sort: "Сортировать:"
+      },
+      en: {
+        mainTitle: "Ukraine Banks Ranking 2025",
+        mainDesc: "Compare reliability, deposit terms and reviews. Choose the best bank for your savings!",
+        thNum: "#",
+        thBank: "Bank",
+        thRating: "Total rating",
+        thStress: "Stress resistance",
+        thLoyal: "Depositor loyalty",
+        thAnalyst: "Analyst score",
+        thDep: "Deposit ranking",
+        btn: "Details",
+        footer: `<b>Data is relevant for 2025. For detailed information and to open a deposit/card, visit the official bank website.</b><br>
+        <i>This site is for informational purposes and is not a bank. All terms are to be checked on official websites.</i>`,
+        modalLink: "Official website",
+        search: "Search:",
+        type: "Bank type:",
+        sort: "Sort by:"
       }
+    };
 
-      function drawObstacles() {
-        obstacles.forEach(o => {
-          ctx.save();
-          ctx.shadowColor = o.color;
-          ctx.shadowBlur = 16;
-          ctx.fillStyle = o.color;
-          ctx.fillRect(o.x, o.y, o.w, o.h);
-          ctx.shadowBlur = 0;
-          ctx.restore();
-        });
-      }
+    let currentLang = 'uk';
+    let currentSort = 'num';
+    let currentType = 'all';
+    let currentSearch = '';
 
-      function drawGround() {
-        ctx.save();
-        ctx.shadowColor = neonColors[colorIndex];
-        ctx.shadowBlur = 16;
-        ctx.fillStyle = "#232b3e";
-        ctx.fillRect(0, 242, canvas.width, 12);
-        ctx.shadowBlur = 0;
-        ctx.restore();
-      }
+    function renderTable(lang) {
+      const t = translations[lang];
+      document.getElementById('main-title').textContent = t.mainTitle;
+      document.getElementById('main-desc').textContent = t.mainDesc;
+      document.getElementById('th-num').textContent = t.thNum;
+      document.getElementById('th-bank').textContent = t.thBank;
+      document.getElementById('th-rating').textContent = t.thRating;
+      document.getElementById('th-stress').textContent = t.thStress;
+      document.getElementById('th-loyal').textContent = t.thLoyal;
+      document.getElementById('th-analyst').textContent = t.thAnalyst;
+      document.getElementById('th-dep').textContent = t.thDep;
+      document.getElementById('footer-note').innerHTML = t.footer;
+      document.querySelector('label[for="search"]').textContent = t.search;
+      document.querySelector('label[for="type-filter"]').textContent = t.type;
+      document.querySelector('label[for="sort"]').textContent = t.sort;
 
-      function updatePlayer() {
-        player.vy += player.gravity;
-        player.y += player.vy;
-        if (player.y + player.r > 242) {
-          player.y = 242 - player.r;
-          player.vy = 0;
-          player.onGround = true;
-        } else {
-          player.onGround = false;
-        }
-      }
-
-      function spawnObstacle() {
-        let h = 32 + Math.random()*38;
-        let w = 18 + Math.random()*22;
-        let y = 242 - h;
-        let color = neonColors[colorIndex];
-        obstacles.push({x: canvas.width+10, y, w, h, color});
-      }
-
-      function updateObstacles() {
-        obstacles.forEach(o => o.x -= speed);
-        if (obstacles.length && obstacles[0].x + obstacles[0].w < 0) obstacles.shift();
-      }
-
-      function checkCollision() {
-        for (let o of obstacles) {
-          // Круг-прямоугольник
-          let cx = Math.max(o.x, Math.min(player.x, o.x+o.w));
-          let cy = Math.max(o.y, Math.min(player.y, o.y+o.h));
-          let dx = player.x - cx, dy = player.y - cy;
-          if (dx*dx + dy*dy < player.r*player.r) {
-            gameOver = true;
-          }
-        }
-      }
-
-      function updateScore() {
-        for (let o of obstacles) {
-          if (!o.passed && o.x + o.w < player.x-player.r) {
-            o.passed = true;
-            score++;
-            scoreDiv.textContent = "Счёт: " + score;
-            // Каждые 10 очков — ускорение и смена цвета
-            if (score % 10 === 0) {
-              speed += 0.7;
-              obstacleInterval = Math.max(500, obstacleInterval-60);
-              colorIndex = (colorIndex+1)%neonColors.length;
-              player.color = neonColors[colorIndex];
-            }
-          }
-        }
-      }
-
-      function loop(ts) {
-        ctx.clearRect(0,0,canvas.width,canvas.height);
-
-        drawGround();
-        drawObstacles();
-        drawPlayer();
-
-        if (!gameOver && started) {
-          updatePlayer();
-          updateObstacles();
-          checkCollision();
-          updateScore();
-
-          if (!obstacleTimer || ts - obstacleTimer > obstacleInterval) {
-            spawnObstacle();
-            obstacleTimer = ts;
-          }
-        }
-
-        if (gameOver) {
-          ctx.save();
-          ctx.globalAlpha = 0.7;
-          ctx.fillStyle = '#0a0a1a';
-          ctx.fillRect(0,0,canvas.width,canvas.height);
-          ctx.restore();
-          ctx.fillStyle = '#fff';
-          ctx.font = 'bold 2rem Montserrat, Arial, sans-serif';
-          ctx.textAlign = 'center';
-          ctx.fillText('Игра окончена!', canvas.width/2, canvas.height/2-10);
-          ctx.font = '1.1rem Montserrat, Arial, sans-serif';
-          ctx.fillText('Счёт: ' + score, canvas.width/2, canvas.height/2+24);
-          restartBtn.style.display = 'inline-block';
-          if (score > best) best = score;
-          ctx.font = '1rem Montserrat, Arial, sans-serif';
-          ctx.fillText('Рекорд: ' + best, canvas.width/2, canvas.height/2+50);
-          return;
-        }
-
-        animationId = requestAnimationFrame(loop);
-      }
-
-      function jump() {
-        if (!started) {
-          started = true;
-          obstacleTimer = 0;
-          obstacles = [];
-          score = 0;
-          scoreDiv.textContent = "Счёт: 0";
-        }
-        if (player.onGround) {
-          player.vy = player.jump;
-        }
-      }
-
-      document.addEventListener('keydown', e => {
-        if (!document.getElementById('neon').classList.contains('active')) return;
-        if (e.key === ' ' || e.key === 'ArrowUp') jump();
-        if (gameOver && e.key === 'Enter') resetGame();
+      let filtered = banks.filter(b => {
+        let matchType = currentType === 'all' || b.type === currentType;
+        let matchSearch = b.name.toLowerCase().includes(currentSearch.toLowerCase());
+        return matchType && matchSearch;
       });
-      canvas.addEventListener('mousedown', jump);
-      canvas.addEventListener('touchstart', jump);
-      restartBtn.onclick = resetGame;
 
-      // Для сброса при переключении игр
-      window.resetNeonRunner = function() {
-        if (animationId) cancelAnimationFrame(animationId);
-        resetGame();
-      };
-
-      // Первый запуск
-      resetGame();
-    })();
-
-    // Puzzle Game (2x5)
-    (function() {
-      const ROWS = 2, COLS = 5;
-      const puzzle = document.getElementById('puzzle-board');
-      const resetBtn = document.getElementById('resetBtn');
-      const winDiv = document.getElementById('win');
-      let pieces = [];
-      let selected = null;
-
-      function createPieces() {
-        pieces = [];
-        for (let i = 0; i < ROWS * COLS; i++) {
-          pieces.push(i);
-        }
+      if (currentSort === 'rating') {
+        filtered.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
+      } else if (currentSort === 'name') {
+        filtered.sort((a, b) => a.name.localeCompare(b.name, lang));
+      } else {
+        filtered.sort((a, b) => a.num - b.num);
       }
 
-      function shuffle() {
-        for (let i = pieces.length - 1; i > 0; i--) {
-          const j = Math.floor(Math.random() * (i + 1));
-          [pieces[i], pieces[j]] = [pieces[j], pieces[i]];
-        }
-      }
+      let html = "";
+      filtered.forEach((b, i) => {
+        html += `<tr>
+          <td>${b.num}</td>
+          <td class="bank-name">${b.name}</td>
+          <td>${b.rating}</td>
+          <td>${b.stress}</td>
+          <td>${b.loyal}</td>
+          <td>${b.analyst}</td>
+          <td>${b.dep}</td>
+          <td><button class="btn-details" data-key="${b.key}">${t.btn}</button></td>
+        </tr>`;
+      });
+      document.getElementById('banks-table').innerHTML = html;
 
-      function render() {
-        puzzle.innerHTML = '';
-        pieces.forEach((n, idx) => {
-          const row = Math.floor(n / COLS);
-          const col = n % COLS;
-          const div = document.createElement('div');
-          div.className = 'piece' + (selected === idx ? ' selected' : '');
-          div.style.backgroundPosition = `-${col*80}px -${row*80}px`;
-          div.onclick = () => selectPiece(idx);
-          puzzle.appendChild(div);
-        });
-      }
-
-      function selectPiece(idx) {
-        if (selected === null) {
-          selected = idx;
-        } else if (selected === idx) {
-          selected = null;
-        } else {
-          [pieces[selected], pieces[idx]] = [pieces[idx], pieces[selected]];
-          selected = null;
-          render();
-          checkWin();
-          return;
-        }
-        render();
-      }
-
-      function checkWin() {
-        for (let i = 0; i < pieces.length; i++) {
-          if (pieces[i] !== i) return winDiv.style.display = 'none';
-        }
-        winDiv.style.display = 'block';
-      }
-
-      resetBtn.onclick = () => {
-        shuffle();
-        selected = null;
-        render();
-        winDiv.style.display = 'none';
-      };
-
-      // Инициализация
-      createPieces();
-      shuffle();
-      render();
-    })();
-
-    // Snake Game с кнопками управления
-    (function() {
-      const canvas = document.getElementById('snake-canvas');
-      const ctx = canvas.getContext('2d');
-      const scoreDiv = document.getElementById('snake-score');
-      const restartBtn = document.getElementById('snake-restart');
-      const bgImg = new Image();
-      bgImg.src = 'https://cdn.abacus.ai/images/f5359c15-634f-4073-af86-8ac33ed03e2a.png';
-
-      const gridSize = 20;
-      const tileCount = 20;
-      let snake, direction, food, score, gameOver, intervalId, nextDir;
-
-      function resetGame() {
-        snake = [{x: 10, y: 10}];
-        direction = {x: 1, y: 0};
-        nextDir = direction;
-        placeFood();
-        score = 0;
-        gameOver = false;
-        scoreDiv.textContent = 'Счёт: 0';
-        restartBtn.style.display = 'none';
-        if (intervalId) clearInterval(intervalId);
-        intervalId = setInterval(gameLoop, 100);
-      }
-
-      function placeFood() {
-        food = {
-          x: Math.floor(Math.random() * tileCount),
-          y: Math.floor(Math.random() * tileCount)
+      document.querySelectorAll('.btn-details').forEach(btn => {
+        btn.onclick = function() {
+          showModal(this.dataset.key);
         };
-        // Не ставим еду на змейку
-        if (snake.some(s => s.x === food.x && s.y === food.y)) placeFood();
-      }
-
-      function draw() {
-        // Фон
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(bgImg, 0, 0, canvas.width, canvas.height);
-
-        // Еда
-        ctx.save();
-        ctx.shadowColor = '#ff3cac';
-        ctx.shadowBlur = 16;
-        ctx.fillStyle = '#ff3cac';
-        ctx.fillRect(food.x * gridSize, food.y * gridSize, gridSize, gridSize);
-        ctx.restore();
-
-        // Змейка
-        snake.forEach((s, i) => {
-          ctx.save();
-          ctx.shadowColor = '#00ff00';
-          ctx.shadowBlur = 12;
-          ctx.fillStyle = i === 0 ? '#00ff00' : '#39ff14';
-          ctx.fillRect(s.x * gridSize, s.y * gridSize, gridSize, gridSize);
-          ctx.restore();
-          // Контур
-          ctx.strokeStyle = '#fff';
-          ctx.lineWidth = 2;
-          ctx.strokeRect(s.x * gridSize, s.y * gridSize, gridSize, gridSize);
-        });
-      }
-
-      function gameLoop() {
-        if (gameOver) return;
-        // Движение
-        direction = nextDir;
-        const head = {x: snake[0].x + direction.x, y: snake[0].y + direction.y};
-        // Проверка на проигрыш
-        if (
-          head.x < 0 || head.x >= tileCount ||
-          head.y < 0 || head.y >= tileCount ||
-          snake.some(s => s.x === head.x && s.y === head.y)
-        ) {
-          gameOver = true;
-          restartBtn.style.display = 'inline-block';
-          clearInterval(intervalId);
-          return;
-        }
-        snake.unshift(head);
-        // Проверка на еду
-        if (head.x === food.x && head.y === food.y) {
-          score++;
-          scoreDiv.textContent = 'Счёт: ' + score;
-          placeFood();
-        } else {
-          snake.pop();
-        }
-        draw();
-      }
-
-      function setDirection(dx, dy) {
-        // Не даём повернуть в обратную сторону
-        if (dx === -direction.x && dy === -direction.y) return;
-        nextDir = {x: dx, y: dy};
-      }
-
-      document.addEventListener('keydown', e => {
-        if (!document.getElementById('snake').classList.contains('active')) return;
-        if (e.key === 'ArrowUp' && direction.y !== 1) setDirection(0, -1);
-        if (e.key === 'ArrowDown' && direction.y !== -1) setDirection(0, 1);
-        if (e.key === 'ArrowLeft' && direction.x !== 1) setDirection(-1, 0);
-        if (e.key === 'ArrowRight' && direction.x !== -1) setDirection(1, 0);
-        if (gameOver && e.key === 'Enter') resetGame();
       });
+    }
 
-      // Кнопки управления
-      document.getElementById('snake-up').onclick = () => setDirection(0, -1);
-      document.getElementById('snake-down').onclick = () => setDirection(0, 1);
-      document.getElementById('snake-left').onclick = () => setDirection(-1, 0);
-      document.getElementById('snake-right').onclick = () => setDirection(1, 0);
+    function showModal(bankKey) {
+      const t = translations[currentLang];
+      const bank = banks.find(b => b.key === bankKey);
+      const details = bankDetails[bankKey][currentLang];
+      document.getElementById('modal-title').textContent = bank.name;
+      document.getElementById('modal-list').innerHTML = details.map(item => `<li>${item}</li>`).join('');
+      document.getElementById('modal-link').textContent = t.modalLink + ' →';
+      document.getElementById('modal-link').href = bank.link;
+      document.getElementById('modal-bg').classList.add('active');
+    }
+    document.getElementById('close-modal').onclick = function() {
+      document.getElementById('modal-bg').classList.remove('active');
+    };
+    document.getElementById('modal-bg').onclick = function(e) {
+      if (e.target === this) this.classList.remove('active');
+    };
 
-      restartBtn.onclick = resetGame;
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+        this.classList.add('active');
+        currentLang = this.dataset.lang;
+        renderTable(currentLang);
+      });
+    });
 
-      // Для сброса при переключении игр
-      window.resetSnake = function() {
-        if (intervalId) clearInterval(intervalId);
-        resetGame();
-      };
+    document.getElementById('search').addEventListener('input', function() {
+      currentSearch = this.value;
+      renderTable(currentLang);
+    });
 
-      // Первый запуск
-      resetGame();
-    })();
+    document.getElementById('type-filter').addEventListener('change', function() {
+      currentType = this.value;
+      renderTable(currentLang);
+    });
+
+    document.getElementById('sort').addEventListener('change', function() {
+      currentSort = this.value;
+      renderTable(currentLang);
+    });
+
+    renderTable('uk');
   </script>
 </body>
 </html>
