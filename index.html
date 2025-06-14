@@ -194,11 +194,49 @@
       display: none;
     }
     #snake-restart:hover { background: #fff200; }
+    /* Snake controls */
+    .snake-controls {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 10px;
+      user-select: none;
+    }
+    .snake-controls-row {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin: 0;
+    }
+    .snake-btn {
+      width: 56px;
+      height: 56px;
+      margin: 6px;
+      border-radius: 50%;
+      border: none;
+      background: #232b3e;
+      color: #00ff00;
+      font-size: 2rem;
+      font-weight: bold;
+      box-shadow: 0 0 18px #00ff00cc, 0 2px 12px #38bdf866;
+      cursor: pointer;
+      transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+      outline: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .snake-btn:active, .snake-btn:focus {
+      background: #38bdf8;
+      color: #fff;
+      box-shadow: 0 0 24px #38bdf8cc;
+    }
     @media (max-width: 700px) {
       .game-section { min-width: 0; padding: 12px 2vw 18px 2vw; }
       #puzzle-board { grid-template-columns: repeat(5, 12vw); grid-template-rows: repeat(2, 12vw);}
       .piece { width: 12vw; height: 12vw; min-width: 36px; min-height: 36px;}
       #neon-canvas, #snake-canvas { width: 90vw !important; height: 60vw !important; max-width: 98vw; max-height: 70vw;}
+      .snake-btn { width: 44px; height: 44px; font-size: 1.5rem;}
     }
   </style>
 </head>
@@ -227,6 +265,16 @@
       <div id="snake-score">Счёт: 0</div>
       <canvas id="snake-canvas" width="400" height="400"></canvas>
       <button id="snake-restart">Заново</button>
+      <div class="snake-controls">
+        <div class="snake-controls-row">
+          <button class="snake-btn" id="snake-up" title="Вверх">▲</button>
+        </div>
+        <div class="snake-controls-row">
+          <button class="snake-btn" id="snake-left" title="Влево">◀</button>
+          <button class="snake-btn" id="snake-down" title="Вниз">▼</button>
+          <button class="snake-btn" id="snake-right" title="Вправо">▶</button>
+        </div>
+      </div>
     </div>
   </div>
   <script>
@@ -534,7 +582,7 @@
       render();
     })();
 
-    // Snake Game
+    // Snake Game с кнопками управления
     (function() {
       const canvas = document.getElementById('snake-canvas');
       const ctx = canvas.getContext('2d');
@@ -545,11 +593,12 @@
 
       const gridSize = 20;
       const tileCount = 20;
-      let snake, direction, food, score, gameOver, intervalId;
+      let snake, direction, food, score, gameOver, intervalId, nextDir;
 
       function resetGame() {
         snake = [{x: 10, y: 10}];
         direction = {x: 1, y: 0};
+        nextDir = direction;
         placeFood();
         score = 0;
         gameOver = false;
@@ -599,6 +648,7 @@
       function gameLoop() {
         if (gameOver) return;
         // Движение
+        direction = nextDir;
         const head = {x: snake[0].x + direction.x, y: snake[0].y + direction.y};
         // Проверка на проигрыш
         if (
@@ -623,14 +673,27 @@
         draw();
       }
 
+      function setDirection(dx, dy) {
+        // Не даём повернуть в обратную сторону
+        if (dx === -direction.x && dy === -direction.y) return;
+        nextDir = {x: dx, y: dy};
+      }
+
       document.addEventListener('keydown', e => {
         if (!document.getElementById('snake').classList.contains('active')) return;
-        if (e.key === 'ArrowUp' && direction.y !== 1) direction = {x: 0, y: -1};
-        if (e.key === 'ArrowDown' && direction.y !== -1) direction = {x: 0, y: 1};
-        if (e.key === 'ArrowLeft' && direction.x !== 1) direction = {x: -1, y: 0};
-        if (e.key === 'ArrowRight' && direction.x !== -1) direction = {x: 1, y: 0};
+        if (e.key === 'ArrowUp' && direction.y !== 1) setDirection(0, -1);
+        if (e.key === 'ArrowDown' && direction.y !== -1) setDirection(0, 1);
+        if (e.key === 'ArrowLeft' && direction.x !== 1) setDirection(-1, 0);
+        if (e.key === 'ArrowRight' && direction.x !== -1) setDirection(1, 0);
         if (gameOver && e.key === 'Enter') resetGame();
       });
+
+      // Кнопки управления
+      document.getElementById('snake-up').onclick = () => setDirection(0, -1);
+      document.getElementById('snake-down').onclick = () => setDirection(0, 1);
+      document.getElementById('snake-left').onclick = () => setDirection(-1, 0);
+      document.getElementById('snake-right').onclick = () => setDirection(1, 0);
+
       restartBtn.onclick = resetGame;
 
       // Для сброса при переключении игр
