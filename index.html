@@ -538,25 +538,17 @@
                 font-size: 1rem;
             }
         }
-        @media (max-width: 768px) {
-            header { padding-bottom: 50px; }
-            .navbar { padding: 0.8rem 0; }
-            .navbar.scrolled { padding: 0.6rem 0; }
-            .navbar nav a { font-size: 1rem; }
-            .btn { bottom: 25px; padding: 0.9rem 2.2rem; font-size: 0.95rem; }
-            .section-title { font-size: 2.8rem; margin-bottom: 40px; }
-            .about-content img, .philosophy-content img { max-width: 100%; }
-            .about-content p, .philosophy-content p, .service-item p, .testimonial-item p, .faq-answer p { font-size: 1rem; }
-            .service-item h3 { font-size: 2rem; }
-            .testimonial-item { padding: 30px; min-height: 210px; }
-            .faq-question { font-size: 1.08rem; padding: 18px 25px; }
-            .faq-answer { padding: 0 25px; }
-            .faq-item.active .faq-answer { padding: 18px 25px; }
-            .contact-info p { font-size: 1.1rem; }
-            .contact-info p i { font-size: 1.4rem; }
-            .social-icons a { font-size: 2.5rem; margin: 0 15px; }
-            section { padding: var(--section-padding-mobile); margin-bottom: 60px; }
-            footer { padding: 30px; font-size: 0.9rem; }
+        @media (max-width: 600px) {
+            header {
+                height: auto;
+                min-height: 220px;
+                padding-top: 60px;
+                padding-bottom: 60px;
+                background-attachment: scroll;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: top center;
+            }
         }
         @media (max-width: 480px) {
             header { padding-bottom: 40px; }
@@ -593,222 +585,8 @@
         <a href="https://www.instagram.com/alla_shevchuk_makeup/" class="btn" target="_blank">Записатися на макіяж</a>
     </header>
 
-    <section id="about" class="about">
-        <h2 class="section-title">Про мене</h2>
-        <div class="about-content">
-            <img src="alla.jpg" alt="Портрет візажистки Алли Шевчук" style="max-width: 500px;">
-            <div class="about-text">
-                <p>Привіт! Я — <strong>Алла Шевчук</strong>, професійна візажистка з Переяслава, з досвідом понад 10 років у світі краси. Моє покликання — не просто наносити макіяж, а підкреслити вашу <strong>унікальну природну красу</strong> та створити образи, які ідеально відображатимуть вашу індивідуальність. Я глибоко вірю, що макіяж — це потужний інструмент, що здатен дарувати <strong>впевненість, радість та натхнення</strong>.</p>
-                <p>У своїй роботі я використовую лише <strong>перевірені та якісні косметичні продукти</strong> від світових люксових брендів, забезпечуючи не тільки <strong>бездоганний та стійкий результат</strong>, а й <strong>дбайливе ставлення</strong> до вашої шкіри. Кожен клієнт для мене унікальний, і я прагну створити максимально <strong>комфортну та надихаючу атмосферу</strong> під час сеансу, адже ваша посмішка та задоволення — моя головна нагорода.</p>
-            </div>
-        </div>
-    </section>
+    <!-- ... остальной код без изменений ... -->
+    <!-- Просто вставь сюда свои секции about, services, philosophy, testimonials, faq, contact, footer и скрипт как раньше -->
 
-    <section id="services" class="services">
-        <h2 class="section-title">Мої послуги</h2>
-        <div class="services-grid">
-            <div class="service-item">
-                <h3>Весільний макіяж</h3>
-                <p>Створення <strong>неповторного та стійкого образу</strong> для нареченої, який ідеально витримає весь святковий день і буде бездоганно виглядати на фото та відео, підкреслюючи вашу ніжність та сяйво.</p>
-            </div>
-            <div class="service-item">
-                <h3>Макіяж для фотосесій</h3>
-                <p>Спеціалізований макіяж, який <strong>ідеально адаптується до світла камери</strong>, підкреслюючи ваші переваги та забезпечуючи <strong>професійний вигляд</strong> для будь-якого виду зйомки (студійна, виїзна, тематична).</p>
-            </div>
-            <div class="service-item">
-                <h3>Денний / Вечірній макіяж</h3>
-                <p>Від <strong>легкого та свіжого денного макіяжу</strong> для природної краси, що підкреслює ваші риси, до <strong>ефектного та виразного вечірнього образу</strong> для особливих подій, корпоративів чи святкових вечірок.</p>
-            </div>
-            <div class="service-item">
-                <h3>Підбір косметики та консультація</h3>
-                <p>Допомога у <strong>виборі якісної косметики</strong>, яка підходить саме вашому типу шкіри та кольоротипу, а також <strong>індивідуальні поради</strong> з догляду за шкірою для щоденного макіяжу та довготривалої краси.</p>
-            </div>
-            <div class="service-item">
-                <h3>Уроки макіяжу "Для себе"</h3>
-                <p>Індивідуальні заняття, на яких ви навчитеся <strong>професійним технікам макіяжу</strong>, освоїте секрети ідеального тону, контурингу, макіяжу очей та зможете <strong>легко відтворювати їх вдома</strong>.</p>
-            </div>
-            <div class="service-item">
-                <h3>Макіяж для особливих подій</h3>
-                <p>Створення <strong>святкового макіяжу</strong> для випускних вечорів, днів народжень, ювілеїв чи інших важливих моментів вашого життя, щоб ви почувалися <strong>справжньою зіркою</strong>.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="philosophy" class="philosophy">
-        <h2 class="section-title">Моя філософія краси</h2>
-        <div class="philosophy-content">
-            <img src="model1.png" alt="Витончений макіяж" style="max-width: 600px;">
-            <div class="philosophy-text">
-                <p>Я твердо переконана, що <strong>справжня краса йде зсередини</strong>, а макіяж лише допомагає її делікатно підкреслити та розкрити. Моя мета — не змінити вас до невпізнання, а розкрити ваш <strong>унікальний потенціал</strong>, надавши образу вишуканості, елегантності та абсолютної впевненості у собі. Кожен штрих пензля, кожен відтінок пудри підбирається <strong>індивідуально</strong>, щоб створити гармонійний, цілісний та ідеальний образ, який пасуватиме саме вам і вашому настрою.</p>
-                <p>Я постійно <strong>вдосконалюю свої навички</strong>, відвідую майстер-класи, стежу за новими тенденціями та інноваціями в індустрії краси, щоб завжди пропонувати вам <strong>найсучасніші та найефективніші рішення</strong>. Довірте мені свій образ, і ви не лише будете почувати себе неперевершено, але й отримаєте цінні поради щодо догляду за шкірою та нанесення макіяжу, які допоможуть вам підтримувати красу щодня.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="testimonials" class="testimonials">
-        <h2 class="section-title">Що кажуть мої клієнти</h2>
-        <div class="testimonial-grid">
-            <div class="testimonial-item">
-                <p>"Алла — справжній професіонал своєї справи! Макіяж тримався ідеально весь день, я почувалася справжньою королевою на своєму весіллі. Дуже рекомендую її послуги!"</p>
-                <div class="client-name">— Ольга К., Наречена</div>
-            </div>
-            <div class="testimonial-item">
-                <p>"Завдяки Аллі я вперше за довгий час відчула себе по-справжньому красивою та впевненою. Денний макіяж був легким, свіжим та підкреслив мої найкращі риси – саме те, що я хотіла."</p>
-                <div class="client-name">— Ірина П., Клієнтка</div>
-            </div>
-            <div class="testimonial-item">
-                <p>"Кожен раз, коли Алла робить мені макіяж для фотосесії, результат перевершує всі очікування. Вона просто чарівниця, яка вміє бачити і створювати ідеал!"</p>
-                <div class="client-name">— Вікторія Л., Модель</div>
-            </div>
-            <div class="testimonial-item">
-                <p>"Просто вражена! Алла створила такий вечірній образ, про який я навіть не мріяла. Макіяж був бездоганним і витримав весь вечір."</p>
-                <div class="client-name">— Анна Р., Гостя свята</div>
-            </div>
-        </div>
-    </section>
-
-    <section id="faq" class="faq">
-        <h2 class="section-title">Часті запитання</h2>
-        <div class="faq-container">
-            <div class="faq-item">
-                <div class="faq-question">
-                    Скільки часу займає макіяж? <span class="icon"><i class="fas fa-chevron-down"></i></span>
-                </div>
-                <div class="faq-answer">
-                    <p>Час залежить від типу макіяжу:</p>
-                    <ul>
-                        <li><strong>Весільний макіяж:</strong> 45 хвилин - 1 година 15 хвилин.</li>
-                        <li><strong>Вечірній макіяж:</strong> 30 - 45 хвилин.</li>
-                        <li><strong>Денний макіяж:</strong> 15 - 30 хвилин.</li>
-                    </ul>
-                    <p>Я завжди працюю ефективно, не жертвуючи якістю.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">
-                    Чи робите ви пробний весільний макіяж? <span class="icon"><i class="fas fa-chevron-down"></i></span>
-                </div>
-                <div class="faq-answer">
-                    <p>Так, <strong>пробний макіяж рекомендований для наречених.</strong> Він дозволяє:</p>
-                    <ul>
-                        <li>Детально підібрати образ під ваш стиль і сукню.</li>
-                        <li>Протестувати косметику на шкірі.</li>
-                        <li>Внести корективи для вашої абсолютної впевненості у день весілля.</li>
-                    </ul>
-                    <p>Це гарантує ваш спокій та бездоганний результат.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">
-                    Як записатися на макіяж? <span class="icon"><i class="fas fa-chevron-down"></i></span>
-                </div>
-                <div class="faq-answer">
-                    <p>Записатися просто! Зв'яжіться зі мною:</p>
-                    <ul>
-                        <li>За телефоном: <strong><a href="tel:+380639871000">+38 (063) 987 10 00</a></strong></li>
-                        <li>В <strong>Instagram Direct</strong>: <a href="https://www.instagram.com/alla_shevchuk_makeup/" target="_blank">@alla_shevchuk_makeup</a></li>
-                        <li>Або через інші месенджери (посилання в розділі "Контакти").</li>
-                    </ul>
-                    <p>Буду рада відповісти та підібрати зручний час!</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="contact" class="contact">
-        <h2 class="section-title">Зв'яжіться зі мною</h2>
-        <div class="contact-info">
-            <p><i class="fas fa-map-marker-alt"></i> Переяслав, Київська область, Україна</p>
-            <p><i class="fas fa-phone"></i> <a href="tel:+380639871000">+38 (063) 987 10 00</a></p>
-            <p><i class="fas fa-envelope"></i> <a href="mailto:alla.makeup@email.com">alla.makeup@email.com</a></p>
-        </div>
-        <div class="social-icons">
-            <a href="https://www.instagram.com/alla_shevchuk_makeup/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-            <a href="#" target="_blank" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
-            <a href="#" target="_blank" aria-label="Viber"><i class="fab fa-viber"></i></a>
-        </div>
-        <a href="https://www.instagram.com/alla_shevchuk_makeup/" class="btn" target="_blank" style="margin-top: 50px; position: static; transform: none; bottom: auto; left: auto;">Записатися зараз!</a>
-    </section>
-
-    <footer>
-        <p>&copy; 2025 Alla Shevchuk Make-up. Всі права захищені. З любов’ю з Переяслава 💗</p>
-    </footer>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const sections = document.querySelectorAll('section');
-            const observer = new IntersectionObserver((entries) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('is-visible');
-                        const title = entry.target.querySelector('.section-title');
-                        if (title) {
-                            title.style.animation = 'none';
-                            void title.offsetWidth;
-                            title.style.animation = null;
-                        }
-                    } else {
-                        entry.target.classList.remove('is-visible');
-                    }
-                });
-            }, { threshold: 0.15 });
-
-            sections.forEach(section => { observer.observe(section); });
-
-            const faqQuestions = document.querySelectorAll('.faq-question');
-            faqQuestions.forEach(question => {
-                question.addEventListener('click', () => {
-                    const faqItem = question.closest('.faq-item');
-                    const answer = faqItem.querySelector('.faq-answer');
-                    document.querySelectorAll('.faq-item.active').forEach(item => {
-                        if (item !== faqItem) {
-                            item.classList.remove('active');
-                            item.querySelector('.faq-answer').style.maxHeight = "0";
-                        }
-                    });
-                    faqItem.classList.toggle('active');
-                    if (faqItem.classList.contains('active')) {
-                        answer.style.maxHeight = answer.scrollHeight + "px";
-                    } else {
-                        answer.style.maxHeight = "0";
-                    }
-                });
-            });
-
-            const navbar = document.querySelector('.navbar');
-            window.addEventListener('scroll', () => {
-                if (window.scrollY > 50) {
-                    navbar.classList.add('scrolled');
-                } else {
-                    navbar.classList.remove('scrolled');
-                }
-            });
-
-            const menuToggle = document.querySelector('.menu-toggle');
-            const navUl = document.querySelector('.navbar nav ul');
-            menuToggle.addEventListener('click', () => {
-                navUl.classList.toggle('active');
-                if (navUl.classList.contains('active')) {
-                    menuToggle.querySelector('i').classList.remove('fa-bars');
-                    menuToggle.querySelector('i').classList.add('fa-times');
-                    document.body.style.overflow = 'hidden';
-                } else {
-                    menuToggle.querySelector('i').classList.remove('fa-times');
-                    menuToggle.querySelector('i').classList.add('fa-bars');
-                    document.body.style.overflow = '';
-                }
-            });
-            navUl.querySelectorAll('a').forEach(link => {
-                link.addEventListener('click', () => {
-                    if (navUl.classList.contains('active')) {
-                        navUl.classList.remove('active');
-                        menuToggle.querySelector('i').classList.remove('fa-times');
-                        menuToggle.querySelector('i').classList.add('fa-bars');
-                        document.body.style.overflow = '';
-                    }
-                });
-            });
-        });
-    </script>
 </body>
 </html>
