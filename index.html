@@ -1,614 +1,945 @@
 <!DOCTYPE html>
 <html lang="uk">
 <head>
-  <meta charset="UTF-8">
-  <title>Рейтинг банків України 2025 — надійність та депозити</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
-  <style>
-    body {
-      background: linear-gradient(120deg, #181f2c 0%, #38bdf8 100%);
-      color: #fff;
-      font-family: 'Montserrat', Arial, sans-serif;
-      margin: 0;
-      min-height: 100vh;
-    }
-    .lang-switcher {
-      position: absolute;
-      top: 24px;
-      right: 32px;
-      z-index: 10;
-      display: flex;
-      gap: 12px;
-      background: rgba(24,31,44,0.85);
-      border-radius: 18px;
-      padding: 6px 18px;
-      box-shadow: 0 2px 12px #38bdf866;
-      font-size: 1.08rem;
-      font-weight: 700;
-      align-items: center;
-      user-select: none;
-    }
-    .lang-btn {
-      background: none;
-      border: none;
-      color: #bfc9d1;
-      cursor: pointer;
-      font-size: 1.08rem;
-      font-weight: 700;
-      padding: 2px 8px;
-      border-radius: 8px;
-      transition: background 0.2s, color 0.2s;
-      outline: none;
-    }
-    .lang-btn.active, .lang-btn:focus {
-      background: #38bdf8;
-      color: #181f2c;
-      box-shadow: 0 0 12px #38bdf8cc;
-    }
-    header {
-      text-align: center;
-      padding: 40px 0 24px 0;
-      background: rgba(24,31,44,0.95);
-      box-shadow: 0 4px 32px #38bdf866;
-      position: relative;
-    }
-    header h1 {
-      font-size: 2.2rem;
-      color: #38bdf8;
-      margin-bottom: 10px;
-      text-shadow: 0 0 18px #38bdf8cc;
-    }
-    header p {
-      color: #bfc9d1;
-      font-size: 1.1rem;
-      margin: 0;
-    }
-    .container {
-      max-width: 1200px;
-      margin: 0 auto;
-      padding: 32px 12px 24px 12px;
-    }
-    .controls {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 16px;
-      margin-bottom: 18px;
-      align-items: center;
-      justify-content: space-between;
-    }
-    .controls input, .controls select {
-      padding: 8px 12px;
-      border-radius: 8px;
-      border: none;
-      font-size: 1rem;
-      background: #232b3e;
-      color: #fff;
-      outline: none;
-      margin-right: 8px;
-    }
-    .controls label {
-      color: #bfc9d1;
-      font-size: 1rem;
-      margin-right: 6px;
-    }
-    .controls select {
-      min-width: 120px;
-    }
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      background: #232b3e;
-      border-radius: 16px;
-      overflow: hidden;
-      box-shadow: 0 2px 18px #38bdf866;
-      margin-bottom: 32px;
-    }
-    th, td {
-      padding: 12px 8px;
-      text-align: center;
-    }
-    th {
-      background: #38bdf8;
-      color: #181f2c;
-      font-weight: 700;
-      font-size: 1.05rem;
-      cursor: pointer;
-      user-select: none;
-    }
-    tr:nth-child(even) td {
-      background: #232b3e;
-    }
-    tr:nth-child(odd) td {
-      background: #27304a;
-    }
-    td {
-      color: #fff;
-      font-size: 1rem;
-    }
-    .bank-name {
-      font-weight: 700;
-      color: #10b981;
-    }
-    .btn-details {
-      background: #10b981;
-      color: #fff;
-      border: none;
-      border-radius: 8px;
-      padding: 7px 18px;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      box-shadow: 0 2px 12px #10b98166;
-      transition: background 0.2s;
-      text-decoration: none;
-      display: inline-block;
-    }
-    .btn-details:hover { background: #38bdf8; color: #181f2c;}
-    .modal-bg {
-      display: none;
-      position: fixed;
-      z-index: 1000;
-      left: 0; top: 0; width: 100vw; height: 100vh;
-      background: rgba(24,31,44,0.85);
-      align-items: center;
-      justify-content: center;
-    }
-    .modal-bg.active { display: flex; }
-    .modal {
-      background: #232b3e;
-      border-radius: 18px;
-      max-width: 480px;
-      width: 95vw;
-      padding: 32px 24px 24px 24px;
-      box-shadow: 0 8px 32px #38bdf8cc;
-      color: #fff;
-      position: relative;
-      animation: modalIn 0.25s;
-    }
-    @keyframes modalIn {
-      from { transform: translateY(-40px) scale(0.95); opacity: 0;}
-      to { transform: none; opacity: 1;}
-    }
-    .modal h2 {
-      margin-top: 0;
-      color: #38bdf8;
-      font-size: 1.4rem;
-      margin-bottom: 10px;
-    }
-    .modal ul {
-      padding-left: 18px;
-      margin: 0 0 12px 0;
-      color: #bfc9d1;
-      font-size: 1.05rem;
-    }
-    .modal a {
-      color: #10b981;
-      text-decoration: underline;
-      word-break: break-all;
-    }
-    .modal .close-btn {
-      position: absolute;
-      top: 12px; right: 16px;
-      background: none;
-      border: none;
-      color: #bfc9d1;
-      font-size: 1.5rem;
-      cursor: pointer;
-      transition: color 0.2s;
-    }
-    .modal .close-btn:hover { color: #38bdf8;}
-    @media (max-width: 900px) {
-      .container { padding: 12px 2vw 12px 2vw;}
-      table, th, td { font-size: 0.95rem;}
-      .controls { flex-direction: column; align-items: stretch;}
-    }
-    @media (max-width: 600px) {
-      .lang-switcher { right: 8px; top: 8px; font-size: 0.98rem; padding: 4px 8px;}
-      table, thead, tbody, th, td, tr { display: block; }
-      th, td { padding: 10px 4vw; }
-      tr { margin-bottom: 12px; }
-      th { background: #38bdf8; color: #181f2c; }
-      td { background: #232b3e; color: #fff; }
-      .modal { padding: 18px 6vw 18px 6vw;}
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Професійна візажистка у Переяславі — Alla Shevchuk Make-up. Запис на макіяж для фотосесій, весіль та інших подій, поради з краси.">
+    <meta property="og:title" content="Alla Shevchuk Make-up | Професійний візажист у Переяславі">
+    <meta property="og:description" content="Досвідчений візажист Алла Шевчук у Переяславі. Весільний, вечірній макіяж, макіяж для фотосесій. Секрети краси та поради.">
+    <meta property="og:image" content="images/preview.jpg">
+    <link rel="icon" href="images/favicon.ico" type="image/x-icon">
+    <title>Alla Shevchuk Make-up | Ваш ідеальний образ</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #e7a2b9; /* Насыщенный розовый */
+            --primary-dark-color: #d388a1; /* Темнее розовый */
+            --light-pink: #fef0f5; /* Очень светлый розовый для фона */
+            --dark-text: #2c3e50; /* Глубокий темный для основного текста */
+            --light-text: #7f8c8d; /* Светлый серый для дополнительного текста */
+            --header-text-color: white;
+            --bg-body-color: #f8f8f8; /* Очень светлый серый/розовый фон */
+            --bg-footer-color: #fce9f1;
+            --font-display: 'Cormorant Garamond', serif; /* Более элегантный шрифт для заголовков */
+            --font-body: 'Montserrat', sans-serif; /* Современный шрифт для тела текста */
+            --section-padding-desktop: 100px 20px; /* Отступы для десктопа */
+            --section-padding-mobile: 60px 15px; /* Отступы для мобильных */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-body);
+            color: var(--dark-text);
+            background-color: var(--bg-body-color);
+            line-height: 1.8;
+            letter-spacing: 0.03em;
+            scroll-behavior: smooth;
+        }
+
+        /* --- Header & Navigation --- */
+        header {
+            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/lipstick-bg.jpg') center/cover no-repeat fixed;
+            height: 100vh;
+            color: var(--header-text-color);
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            animation: fadeIn 2s ease-in-out;
+            position: relative;
+            overflow: hidden;
+            padding: 20px; /* Добавим padding для мобильных */
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            padding: 1.2rem 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            transition: background-color 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            background-color: rgba(0, 0, 0, 0.9);
+        }
+
+        .navbar nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+        }
+
+        .navbar nav a {
+            color: var(--header-text-color);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.2s ease;
+            font-size: 1.15rem;
+            position: relative;
+        }
+
+        .navbar nav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: var(--primary-color);
+            left: 50%;
+            bottom: -5px;
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+
+        .navbar nav a:hover::after {
+            width: 100%;
+        }
+
+        .navbar nav a:hover {
+            color: var(--primary-color);
+        }
+
+        header h1 {
+            font-family: var(--font-display);
+            font-size: 4.5rem;
+            animation: fadeInDown 1.5s ease-in-out;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            font-size: 1.4rem;
+            margin: 1rem 0 2.5rem;
+            animation: fadeInUp 1.8s ease-in-out;
+            max-width: 700px;
+            margin-left: auto;
+            margin-right: auto;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+        }
+
+        .btn {
+            background: var(--primary-color);
+            color: var(--header-text-color);
+            padding: 1.2rem 3rem;
+            border: none;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.4s ease;
+            animation: fadeIn 2s ease-in-out;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            display: inline-block;
+            font-size: 1.1rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .btn:hover {
+            background: var(--primary-dark-color);
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+        }
+
+        /* --- Global Section Styles --- */
+        section {
+            padding: var(--section-padding-desktop);
+            max-width: 1200px;
+            margin: 0 auto 80px auto;
+            opacity: 0;
+            transform: translateY(70px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            position: relative;
+            overflow: hidden;
+        }
+
+        section:last-of-type {
+            margin-bottom: 0;
+        }
+
+        section.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .section-title {
+            text-align: center;
+            font-family: var(--font-display);
+            font-size: 3.5rem;
+            margin-bottom: 60px;
+            color: var(--primary-dark-color);
+            position: relative;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: var(--primary-color);
+            margin: 20px auto 0;
+            border-radius: 5px;
+            transform: scaleX(0);
+            animation: expandLine 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
+            animation-delay: 0.3s;
+        }
+
+        /* --- About Section Specifics --- */
+        .about-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 50px;
+            justify-content: center;
+        }
+        .about-content img {
+            max-width: 45%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            object-fit: cover;
+            flex-shrink: 0; /* Не сжимать изображение */
+        }
+        .about-content img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        .about-text {
+            flex: 1;
+            max-width: 50%;
+            text-align: left;
+        }
+        .about-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-text);
+        }
+
+        /* --- Services Section Specifics --- */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .service-item {
+            background-color: var(--light-pink);
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex; /* Для равномерной высоты текста */
+            flex-direction: column; /* Для равномерной высоты текста */
+            justify-content: space-between; /* Для равномерной высоты текста */
+            min-height: 220px; /* Чтобы карточки услуг были примерно одинаковой высоты */
+        }
+
+        .service-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
+            transform: scaleY(0);
+            transform-origin: bottom;
+            transition: transform 0.4s ease;
+            z-index: 0;
+        }
+
+        .service-item:hover::before {
+            transform: scaleY(1);
+        }
+
+        .service-item:hover {
+            transform: translateY(-12px);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
+            color: white;
+        }
+
+        .service-item h3, .service-item p {
+            position: relative;
+            z-index: 1;
+            transition: color 0.3s ease;
+        }
+
+        .service-item h3 {
+            font-family: var(--font-display);
+            font-size: 1.8rem;
+            color: var(--primary-dark-color);
+            margin-bottom: 18px;
+        }
+
+        .service-item:hover h3 {
+            color: white;
+        }
+
+        .service-item p {
+            color: var(--light-text);
+            font-size: 1.05rem;
+            margin-bottom: 0; /* Убрать лишний отступ */
+        }
+
+        .service-item:hover p {
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* --- Brands Section Specifics --- */
+        .brands-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 35px;
+            justify-items: center;
+            align-items: center;
+            margin-top: 40px;
+        }
+
+        .brand-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            background-color: #fcfcfc;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+        .brand-item:hover {
+            transform: translateY(-8px) scale(1.05);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .brand-item img {
+            max-width: 90px;
+            height: auto;
+            filter: grayscale(90%);
+            opacity: 0.6;
+            transition: filter 0.4s ease, opacity 0.4s ease;
+            margin-bottom: 10px;
+        }
+        .brand-item img:hover {
+            filter: grayscale(0%);
+            opacity: 1;
+        }
+        .brand-item p {
+            font-weight: 500;
+            color: var(--dark-text);
+            font-size: 1rem;
+            margin-top: 0;
+        }
+
+        /* --- Philosophy Section Specifics --- */
+        .philosophy-content {
+            display: flex;
+            flex-direction: row-reverse;
+            align-items: center;
+            gap: 50px;
+            text-align: left;
+            justify-content: center;
+        }
+        .philosophy-content img {
+            max-width: 45%;
+            height: auto;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+            object-fit: cover;
+            flex-shrink: 0; /* Не сжимать изображение */
+        }
+        .philosophy-content img:hover {
+            transform: scale(1.03);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+        }
+        .philosophy-text {
+            flex: 1;
+            max-width: 50%;
+        }
+        .philosophy-content p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark-text);
+        }
+
+        /* --- Testimonials Section Specifics --- */
+        .testimonial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+        .testimonial-item {
+            background-color: var(--light-pink);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 200px;
+        }
+        .testimonial-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        }
+        .testimonial-item p {
+            font-style: italic;
+            margin-bottom: 20px;
+            color: var(--dark-text);
+            font-size: 1.05rem;
+        }
+        .testimonial-item .client-name {
+            font-weight: 600;
+            color: var(--primary-dark-color);
+            font-size: 1.1rem;
+            display: block;
+            margin-top: auto;
+        }
+
+        /* --- FAQ Section Specifics --- */
+        .faq-container {
+            margin-top: 40px;
+        }
+        .faq-item {
+            background-color: var(--light-pink);
+            margin-bottom: 20px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.8);
+        }
+        .faq-question {
+            padding: 20px 30px;
+            background-color: var(--primary-color);
+            color: white;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 500;
+            font-size: 1.15rem;
+            transition: background-color 0.3s ease;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        .faq-question:hover {
+            background-color: var(--primary-dark-color);
+        }
+        .faq-question .icon {
+            font-size: 1.3rem;
+            transition: transform 0.3s ease;
+        }
+        .faq-answer {
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
+            background-color: white;
+            color: var(--light-text);
+            font-size: 1.05rem;
+        }
+        .faq-item.active .faq-answer {
+            max-height: 300px;
+            padding: 20px 30px;
+        }
+        .faq-item.active .faq-question .icon {
+            transform: rotate(180deg);
+        }
+
+        /* --- Contact Section Specifics --- */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+
+        .contact-info p {
+            font-size: 1.2rem;
+            color: var(--dark-text);
+            display: flex;
+            align-items: center;
+        }
+        .contact-info p i {
+            margin-right: 15px;
+            color: var(--primary-dark-color);
+            font-size: 1.5rem;
+        }
+        .contact-info a {
+            color: var(--primary-dark-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+        .contact-info a:hover {
+            color: var(--primary-color);
+            text-decoration: underline;
+        }
+
+        .social-icons {
+            margin-top: 30px;
+        }
+        .social-icons a {
+            font-size: 2.8rem;
+            color: var(--primary-dark-color);
+            margin: 0 20px;
+            transition: transform 0.4s ease, color 0.4s ease;
+        }
+        .social-icons a:hover {
+            color: var(--primary-color);
+            transform: translateY(-8px) rotate(5deg);
+        }
+
+        /* --- Footer --- */
+        footer {
+            background: var(--bg-footer-color);
+            text-align: center;
+            padding: 30px;
+            font-size: 1rem;
+            color: #666;
+            margin-top: 80px;
+            border-top: 1px solid #f0e0e5;
+        }
+
+        footer a {
+            color: var(--primary-dark-color);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: var(--primary-color);
+        }
+
+        /* --- Animations --- */
+        @keyframes fadeInDown {
+            0% { opacity: 0; transform: translateY(-50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            0% { opacity: 0; transform: translateY(50px); }
+            100% { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes expandLine {
+            0% { width: 0; transform: translateX(-50%) scaleX(0); }
+            100% { width: 80px; transform: translateX(-50%) scaleX(1); }
+        }
+
+
+        /* --- Media Queries for Responsiveness --- */
+        @media (max-width: 992px) {
+            header h1 {
+                font-size: 3.5rem;
+            }
+            header p {
+                font-size: 1.2rem;
+            }
+            .navbar nav ul {
+                gap: 1.5rem;
+            }
+            .section-title {
+                font-size: 2.8rem;
+                margin-bottom: 40px;
+            }
+            .about-content, .philosophy-content {
+                flex-direction: column; /* На меньших экранах вертикально */
+                gap: 30px;
+                text-align: center; /* Центрируем текст и изображения */
+            }
+            .about-content img, .philosophy-content img {
+                max-width: 90%; /* Увеличим размер изображений для лучшего вида */
+                margin: 0 auto; /* Центрируем изображения */
+            }
+            .about-text, .philosophy-text {
+                max-width: 100%; /* Занимаем всю ширину */
+                text-align: center; /* Центрируем текст */
+            }
+            .services-grid, .testimonial-grid {
+                grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            }
+            section {
+                padding: var(--section-padding-mobile); /* Мобильные отступы */
+                margin-bottom: 60px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2.8rem;
+            }
+            header p {
+                font-size: 1rem;
+            }
+            .navbar nav ul {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            .navbar nav a {
+                font-size: 1rem;
+            }
+            .btn {
+                padding: 1rem 2rem;
+                font-size: 1rem;
+            }
+            .section-title {
+                font-size: 2.2rem;
+                margin-bottom: 30px;
+            }
+            .about-content img, .philosophy-content img {
+                max-width: 100%; /* Увеличим размер изображений на мобильных */
+            }
+            .about-content p, .philosophy-content p, .service-item p, .testimonial-item p, .faq-answer p {
+                font-size: 0.95rem;
+            }
+            .service-item h3 {
+                font-size: 1.5rem;
+            }
+            .brands-grid {
+                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+                gap: 25px;
+            }
+            .brand-item img {
+                max-width: 70px;
+            }
+            .testimonial-item {
+                padding: 25px;
+            }
+            .faq-question {
+                font-size: 1rem;
+                padding: 15px 20px;
+            }
+            .faq-answer {
+                padding: 0 20px;
+            }
+            .faq-item.active .faq-answer {
+                padding: 15px 20px;
+            }
+            .contact-info p {
+                font-size: 1rem;
+            }
+            .contact-info p i {
+                font-size: 1.2rem;
+            }
+            .social-icons a {
+                font-size: 2rem;
+                margin: 0 10px;
+            }
+            section {
+                padding: var(--section-padding-mobile);
+                margin-bottom: 40px;
+            }
+            footer {
+                padding: 20px;
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2rem; /* Ещё уменьшим на самых маленьких экранах */
+            }
+            header p {
+                font-size: 0.85rem;
+            }
+            .btn {
+                padding: 0.7rem 1.4rem;
+                font-size: 0.85rem;
+            }
+            .section-title {
+                font-size: 1.6rem;
+            }
+            .navbar nav ul {
+                gap: 0.8rem;
+                padding: 0.8rem 0; /* Уменьшим padding навигации */
+            }
+            .navbar nav a {
+                font-size: 0.9rem;
+            }
+            .service-item {
+                min-height: 200px; /* Немного уменьшим высоту карточек на мелких экранах */
+                padding: 25px;
+            }
+        }
+    </style>
 </head>
 <body>
-  <div class="lang-switcher">
-    <button class="lang-btn active" data-lang="uk">Укр</button>
-    <span>|</span>
-    <button class="lang-btn" data-lang="ru">Рус</button>
-    <span>|</span>
-    <button class="lang-btn" data-lang="en">Eng</button>
-  </div>
-  <header>
-    <h1 id="main-title">Рейтинг банків України 2025</h1>
-    <p id="main-desc">Порівняйте надійність, умови по депозитах та відгуки. Оберіть найкращий банк для своїх заощаджень!</p>
-  </header>
-  <div class="container">
-    <div class="controls">
-      <div>
-        <label for="search">Пошук:</label>
-        <input type="text" id="search" placeholder="Введіть назву банку...">
-      </div>
-      <div>
-        <label for="type-filter">Тип банку:</label>
-        <select id="type-filter">
-          <option value="all">Всі</option>
-          <option value="state">Державний</option>
-          <option value="foreign">Іноземний</option>
-          <option value="private">Приватний</option>
-        </select>
-      </div>
-      <div>
-        <label for="sort">Сортувати:</label>
-        <select id="sort">
-          <option value="num">За номером</option>
-          <option value="rating">За рейтингом</option>
-          <option value="name">За назвою</option>
-        </select>
-      </div>
-    </div>
-    <table>
-      <thead>
-        <tr>
-          <th id="th-num">№</th>
-          <th id="th-bank">Банк</th>
-          <th id="th-rating">Загальний рейтинг</th>
-          <th id="th-stress">Стресостійкість</th>
-          <th id="th-loyal">Лояльність вкладників</th>
-          <th id="th-analyst">Оцінка аналітиків</th>
-          <th id="th-dep">Місце по депозитах</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody id="banks-table">
-        <!-- Таблица будет заполняться JS -->
-      </tbody>
-    </table>
-    <div id="footer-note" style="color:#bfc9d1;text-align:center;font-size:0.98rem;line-height:1.6;">
-      <b>Дані актуальні на 2025 рік. Для детальної інформації та оформлення вкладу/карти переходьте на офіційний сайт банку.</b><br>
-      <i>Сайт має інформаційний характер і не є банком. Всі умови уточнюйте на офіційних сайтах.</i>
-    </div>
-  </div>
-  <!-- Модальное окно -->
-  <div class="modal-bg" id="modal-bg">
-    <div class="modal" id="modal">
-      <button class="close-btn" id="close-modal" title="Закрити">&times;</button>
-      <h2 id="modal-title"></h2>
-      <ul id="modal-list"></ul>
-      <a id="modal-link" href="#" target="_blank"></a>
-    </div>
-  </div>
-  <script>
-    // --- ДАННЫЕ БАНКОВ (27 банков, включая monobank и izibank) ---
-    const banks = [
-      {num:1, name:"Укрсиббанк", rating:"4.48", stress:"4.06", loyal:"4.9", analyst:"4.67", dep:"6", link:"https://ukrsibbank.com/", key:"ukrsib", type:"foreign"},
-      {num:2, name:"Райффайзен Банк", rating:"4.39", stress:"4", loyal:"4.8", analyst:"4.56", dep:"4", link:"https://raiffeisen.ua/", key:"raif", type:"foreign"},
-      {num:3, name:"Креді Агріколь Банк", rating:"4.26", stress:"4.12", loyal:"4.2", analyst:"4.67", dep:"11", link:"https://credit-agricole.ua/", key:"agricole", type:"foreign"},
-      {num:4, name:"Кредобанк", rating:"4.04", stress:"3.84", loyal:"4.2", analyst:"4.22", dep:"13", link:"https://kredobank.com.ua/", key:"kredo", type:"foreign"},
-      {num:5, name:"ОТП Банк", rating:"3.99", stress:"4.04", loyal:"3.8", analyst:"4.22", dep:"10", link:"https://otpbank.com.ua/", key:"otp", type:"foreign"},
-      {num:6, name:"Приватбанк", rating:"3.98", stress:"3.45", loyal:"4.4", analyst:"4.44", dep:"1", link:"https://privatbank.ua/", key:"privat", type:"state"},
-      {num:7, name:"Укргазбанк", rating:"3.86", stress:"3.56", loyal:"4.1", analyst:"4.11", dep:"9", link:"https://ukrgasbank.com/", key:"ukrgas", type:"state"},
-      {num:8, name:"Універсал Банк", rating:"3.83", stress:"2.96", loyal:"4.9", analyst:"3.89", dep:"3", link:"https://universalbank.com.ua/", key:"universal", type:"private"},
-      {num:9, name:"Ощадбанк", rating:"3.81", stress:"3.08", loyal:"4.5", analyst:"4.22", dep:"2", link:"https://oschadbank.ua/", key:"oschad", type:"state"},
-      {num:10, name:"Прокредит Банк", rating:"3.75", stress:"3.7", loyal:"3.6", analyst:"4.11", dep:"15", link:"https://procreditbank.com.ua/", key:"procredit", type:"foreign"},
-      {num:11, name:"ПУМБ", rating:"3.74", stress:"3.12", loyal:"4.2", analyst:"4.11", dep:"5", link:"https://pumb.ua/", key:"pumb", type:"private"},
-      {num:12, name:"Ідея Банк", rating:"3.73", stress:"3.01", loyal:"4.1", analyst:"4.00", dep:"14", link:"https://ideabank.ua/", key:"idea", type:"private"},
-      {num:13, name:"А-Банк", rating:"3.71", stress:"2.98", loyal:"4.3", analyst:"3.89", dep:"7", link:"https://a-bank.com.ua/", key:"abank", type:"private"},
-      {num:14, name:"МТБ Банк", rating:"3.68", stress:"3.02", loyal:"4.0", analyst:"3.89", dep:"16", link:"https://mtb.ua/", key:"mtb", type:"private"},
-      {num:15, name:"Південний", rating:"3.67", stress:"2.95", loyal:"4.0", analyst:"3.78", dep:"17", link:"https://bank.com.ua/", key:"pivdenny", type:"private"},
-      {num:16, name:"Таскомбанк", rating:"3.65", stress:"2.91", loyal:"4.1", analyst:"3.78", dep:"12", link:"https://tascombank.ua/", key:"tascom", type:"private"},
-      {num:17, name:"Мегабанк", rating:"3.63", stress:"2.89", loyal:"4.0", analyst:"3.67", dep:"18", link:"https://megabank.ua/", key:"mega", type:"private"},
-      {num:18, name:"Банк Восток", rating:"3.62", stress:"2.88", loyal:"4.0", analyst:"3.67", dep:"19", link:"https://bankvostok.com.ua/", key:"vostok", type:"private"},
-      {num:19, name:"Глобус Банк", rating:"3.61", stress:"2.87", loyal:"4.0", analyst:"3.67", dep:"20", link:"https://globusbank.com.ua/", key:"globus", type:"private"},
-      {num:20, name:"Альфа-Банк Україна", rating:"3.60", stress:"2.86", loyal:"4.0", analyst:"3.67", dep:"8", link:"https://alfabank.ua/", key:"alfa", type:"private"},
-      {num:21, name:"Індустріалбанк", rating:"3.59", stress:"2.85", loyal:"4.0", analyst:"3.67", dep:"21", link:"https://industrialbank.ua/", key:"industrial", type:"private"},
-      {num:22, name:"Банк Кредит Дніпро", rating:"3.58", stress:"2.84", loyal:"4.0", analyst:"3.67", dep:"22", link:"https://creditdnepr.com.ua/", key:"dnepr", type:"private"},
-      {num:23, name:"Піреус Банк", rating:"3.57", stress:"2.83", loyal:"4.0", analyst:"3.67", dep:"23", link:"https://www.piraeusbank.ua/", key:"piraeus", type:"foreign"},
-      {num:24, name:"Укрексімбанк", rating:"3.56", stress:"2.82", loyal:"4.0", analyst:"3.67", dep:"24", link:"https://www.eximb.com/", key:"exim", type:"state"},
-      {num:25, name:"Сенс Банк", rating:"3.55", stress:"2.81", loyal:"4.0", analyst:"3.67", dep:"25", link:"https://www.sensebank.com.ua/", key:"sense", type:"private"},
-      {num:26, name:"monobank", rating:"4.70", stress:"4.20", loyal:"5.0", analyst:"4.80", dep:"2", link:"https://monobank.ua/", key:"mono", type:"private"},
-      {num:27, name:"izibank", rating:"4.30", stress:"3.80", loyal:"4.7", analyst:"4.20", dep:"8", link:"https://izibank.com.ua/", key:"izi", type:"private"},
-    ];
 
-    // --- СПРАВКИ ПО БАНКАМ (27 банков, включая monobank и izibank) ---
-    const bankDetails = {
-      ukrsib: {
-        uk: [
-          "Входить до міжнародної групи BNP Paribas",
-          "Рік заснування: 1990",
-          "Один із найнадійніших банків України",
-          "Основні продукти: депозити, кредити, картки, обслуговування бізнесу",
-          "Ліцензія НБУ №75 від 05.10.2011",
-          "Більше 260 відділень по Україні"
-        ],
-        ru: [
-          "Входит в международную группу BNP Paribas",
-          "Год основания: 1990",
-          "Один из самых надёжных банков Украины",
-          "Основные продукты: депозиты, кредиты, карты, обслуживание бизнеса",
-          "Лицензия НБУ №75 от 05.10.2011",
-          "Более 260 отделений по Украине"
-        ],
-        en: [
-          "Part of the international BNP Paribas group",
-          "Founded: 1990",
-          "One of the most reliable banks in Ukraine",
-          "Main products: deposits, loans, cards, business services",
-          "NBU license #75 from 05.10.2011",
-          "Over 260 branches in Ukraine"
-        ]
-      },
-      raif: {
-        uk: [
-          "Входить до австрійської групи Raiffeisen Bank International",
-          "Рік заснування: 1992",
-          "Один із найбільших банків з іноземним капіталом",
-          "Основні продукти: депозити, кредити, картки, онлайн-банкінг",
-          "Ліцензія НБУ №10 від 18.06.1992",
-          "Більше 400 відділень по Україні"
-        ],
-        ru: [
-          "Входит в австрийскую группу Raiffeisen Bank International",
-          "Год основания: 1992",
-          "Один из крупнейших банков с иностранным капиталом",
-          "Основные продукты: депозиты, кредиты, карты, онлайн-банкинг",
-          "Лицензия НБУ №10 от 18.06.1992",
-          "Более 400 отделений по Украине"
-        ],
-        en: [
-          "Part of the Austrian Raiffeisen Bank International group",
-          "Founded: 1992",
-          "One of the largest foreign banks in Ukraine",
-          "Main products: deposits, loans, cards, online banking",
-          "NBU license #10 from 18.06.1992",
-          "Over 400 branches in Ukraine"
-        ]
-      },
-      agricole: {
-        uk: [
-          "Входить до французької групи Credit Agricole",
-          "Рік заснування: 1993",
-          "Один із найнадійніших банків з іноземним капіталом",
-          "Основні продукти: депозити, кредити, картки, онлайн-банкінг",
-          "Ліцензія НБУ №99 від 05.10.2011",
-          "Більше 150 відділень по Україні"
-        ],
-        ru: [
-          "Входит во французскую группу Credit Agricole",
-          "Год основания: 1993",
-          "Один из самых надёжных банков с иностранным капиталом",
-          "Основные продукты: депозиты, кредиты, карты, онлайн-банкинг",
-          "Лицензия НБУ №99 от 05.10.2011",
-          "Более 150 отделений по Украине"
-        ],
-        en: [
-          "Part of the French Credit Agricole group",
-          "Founded: 1993",
-          "One of the most reliable foreign banks in Ukraine",
-          "Main products: deposits, loans, cards, online banking",
-          "NBU license #99 from 05.10.2011",
-          "Over 150 branches in Ukraine"
-        ]
-      },
-      // ... (сюда вставь остальные bankDetails из предыдущих сообщений, включая новые для mono и izi) ...
-      mono: {
-        uk: [
-          "monobank — перший мобільний банк в Україні (без відділень)",
-          "Рік запуску: 2017",
-          "Працює на базі Універсал Банку",
-          "Основні продукти: картки, депозити, кредити, кешбек, мобільний додаток",
-          "Ліцензія НБУ (Універсал Банк) №92 від 20.01.1994",
-          "Відділень немає, все онлайн"
-        ],
-        ru: [
-          "monobank — первый мобильный банк в Украине (без отделений)",
-          "Год запуска: 2017",
-          "Работает на базе Универсал Банка",
-          "Основные продукты: карты, депозиты, кредиты, кешбэк, мобильное приложение",
-          "Лицензия НБУ (Универсал Банк) №92 от 20.01.1994",
-          "Отделений нет, всё онлайн"
-        ],
-        en: [
-          "monobank — Ukraine's first mobile-only bank (no branches)",
-          "Launched: 2017",
-          "Operates on Universal Bank's license",
-          "Main products: cards, deposits, loans, cashback, mobile app",
-          "NBU license (Universal Bank) #92 from 20.01.1994",
-          "No branches, all services online"
-        ]
-      },
-      izi: {
-        uk: [
-          "izibank — мобільний банк нового покоління",
-          "Рік запуску: 2020",
-          "Працює на базі ТАСкомбанку",
-          "Основні продукти: картки, депозити, кредити, кешбек, мобільний додаток",
-          "Ліцензія НБУ (ТАСкомбанк) №84 від 25.10.2011",
-          "Відділень немає, все онлайн"
-        ],
-        ru: [
-          "izibank — мобильный банк нового поколения",
-          "Год запуска: 2020",
-          "Работает на базе ТАСкомбанка",
-          "Основные продукты: карты, депозиты, кредиты, кешбэк, мобильное приложение",
-          "Лицензия НБУ (ТАСкомбанк) №84 от 25.10.2011",
-          "Отделений нет, всё онлайн"
-        ],
-        en: [
-          "izibank — new generation mobile bank",
-          "Launched: 2020",
-          "Operates on TAScombank's license",
-          "Main products: cards, deposits, loans, cashback, mobile app",
-          "NBU license (TAScombank) #84 from 25.10.2011",
-          "No branches, all services online"
-        ]
-      }
-    };
+    <header>
+        <div class="navbar">
+            <nav>
+                <ul>
+                    <li><a href="#about">Про мене</a></li>
+                    <li><a href="#services">Послуги</a></li>
+                    <li><a href="#brands">Бренди</a></li>
+                    <li><a href="#philosophy">Моя філософія</a></li>
+                    <li><a href="#testimonials">Відгуки</a></li>
+                    <li><a href="#faq">FAQ</a></li>
+                    <li><a href="#contact">Контакти</a></li>
+                </ul>
+            </nav>
+        </div>
+        <h1>Alla Shevchuk Make-up</h1>
+        <p>Професійна візажистка у Переяславі — створюємо красу разом!</p>
+        <a href="https://www.instagram.com/alla_shevchuk_makeup/" class="btn" target="_blank">Записатися на макіяж</a>
+    </header>
 
-    // --- (translations и остальной JS-код — как в предыдущем шаблоне) ---
-    // ... (оставь translations и JS-логику из предыдущего ответа без изменений) ...
-    // --- Вставь translations и JS-логику из предыдущего шаблона здесь ---
+    <section id="about" class="about">
+        <h2 class="section-title">Про мене</h2>
+        <div class="about-content">
+            <img src="images/dogukan-sahin-pLvaikQ6dSQ-unsplash.jpg" alt="Красивые косметические средства" style="max-width: 500px;">
+            <div class="about-text">
+                <p>Привіт! Я — **Алла Шевчук**, професійна візажистка з Переяслава, з досвідом понад 10 років у світі краси. Моє покликання — не просто наносити макіяж, а підкреслювати вашу **унікальну природну красу** та створювати образи, які ідеально відображатимуть вашу індивідуальність. Я глибоко вірю, що макіяж — це потужний інструмент, що здатен дарувати **впевненість, радість та натхнення**.</p>
+                <p>У своїй роботі я використовую лише **перевірені та якісні косметичні продукти** від світових люксових брендів, забезпечуючи не тільки **бездоганний та стійкий результат**, а й **дбайливе ставлення** до вашої шкіри. Кожен клієнт для мене унікальний, і я прагну створити максимально **комфортну та надихаючу атмосферу** під час сеансу, адже ваші посмішка та задоволення — моя головна нагорода.</p>
+            </div>
+        </div>
+    </section>
 
-    // --- translations ---
-    const translations = {
-      uk: {
-        mainTitle: "Рейтинг банків України 2025",
-        mainDesc: "Порівняйте надійність, умови по депозитах та відгуки. Оберіть найкращий банк для своїх заощаджень!",
-        thNum: "№",
-        thBank: "Банк",
-        thRating: "Загальний рейтинг",
-        thStress: "Стресостійкість",
-        thLoyal: "Лояльність вкладників",
-        thAnalyst: "Оцінка аналітиків",
-        thDep: "Місце по депозитах",
-        btn: "Детальніше",
-        footer: `<b>Дані актуальні на 2025 рік. Для детальної інформації та оформлення вкладу/карти переходьте на офіційний сайт банку.</b><br>
-        <i>Сайт має інформаційний характер і не є банком. Всі умови уточнюйте на офіційних сайтах.</i>`,
-        modalLink: "Офіційний сайт",
-        search: "Пошук:",
-        type: "Тип банку:",
-        sort: "Сортувати:"
-      },
-      ru: {
-        mainTitle: "Рейтинг банков Украины 2025",
-        mainDesc: "Сравните надежность, условия по вкладам и отзывы. Выберите лучший банк для своих сбережений!",
-        thNum: "№",
-        thBank: "Банк",
-        thRating: "Общий рейтинг",
-        thStress: "Стрессоустойчивость",
-        thLoyal: "Лояльность вкладчиков",
-        thAnalyst: "Оценка аналитиков",
-        thDep: "Место по депозитам",
-        btn: "Подробнее",
-        footer: `<b>Данные актуальны на 2025 год. Для подробной информации и оформления вклада/карты переходите на официальный сайт банка.</b><br>
-        <i>Сайт носит информационный характер и не является банком. Все условия уточняйте на официальных сайтах.</i>`,
-        modalLink: "Официальный сайт",
-        search: "Поиск:",
-        type: "Тип банка:",
-        sort: "Сортировать:"
-      },
-      en: {
-        mainTitle: "Ukraine Banks Ranking 2025",
-        mainDesc: "Compare reliability, deposit terms and reviews. Choose the best bank for your savings!",
-        thNum: "#",
-        thBank: "Bank",
-        thRating: "Total rating",
-        thStress: "Stress resistance",
-        thLoyal: "Depositor loyalty",
-        thAnalyst: "Analyst score",
-        thDep: "Deposit ranking",
-        btn: "Details",
-        footer: `<b>Data is relevant for 2025. For detailed information and to open a deposit/card, visit the official bank website.</b><br>
-        <i>This site is for informational purposes and is not a bank. All terms are to be checked on official websites.</i>`,
-        modalLink: "Official website",
-        search: "Search:",
-        type: "Bank type:",
-        sort: "Sort by:"
-      }
-    };
+    <section id="services" class="services">
+        <h2 class="section-title">Мої послуги</h2>
+        <div class="services-grid">
+            <div class="service-item">
+                <h3>Весільний макіяж</h3>
+                <p>Створення **неповторного та стійкого образу** для нареченої, який ідеально витримає весь святковий день і буде бездоганно виглядати на фото та відео, підкреслюючи вашу ніжність та сяйво.</p>
+            </div>
+            <div class="service-item">
+                <h3>Макіяж для фотосесій</h3>
+                <p>Спеціалізований макіяж, який **ідеально адаптується до світла камери**, підкреслюючи ваші переваги та забезпечуючи **професійний вигляд** для будь-якого виду зйомки (студійна, виїзна, тематична).</p>
+            </div>
+            <div class="service-item">
+                <h3>Денний / Вечірній макіяж</h3>
+                <p>Від **легкого та свіжого денного макіяжу** для природної краси, що підкреслює ваші риси, до **ефектного та виразного вечірнього образу** для особливих подій, корпоративів чи святкових вечірок.</p>
+            </div>
+            <div class="service-item">
+                <h3>Підбір косметики та консультація</h3>
+                <p>Допомога у **виборі якісної косметики**, яка підходить саме вашому типу шкіри та кольоротипу, а також **індивідуальні поради** з догляду за шкірою для щоденного макіяжу та довготривалої краси.</p>
+            </div>
+            <div class="service-item">
+                <h3>Уроки макіяжу "Для себе"</h3>
+                <p>Індивідуальні заняття, на яких ви навчитеся **професійним технікам макіяжу**, освоїте секрети ідеального тону, контурингу, макіяжу очей та зможете **легко відтворювати їх вдома**.</p>
+            </div>
+            <div class="service-item">
+                <h3>Макіяж для особливих подій</h3>
+                <p>Створення **святкового макіяжу** для випускних вечорів, днів народжень, ювілеїв чи інших важливих моментів вашого життя, щоб ви почувалися **справжньою зіркою**.</p>
+            </div>
+        </div>
+    </section>
 
-    let currentLang = 'uk';
-    let currentSort = 'num';
-    let currentType = 'all';
-    let currentSearch = '';
+    <section id="brands" class="brands">
+        <h2 class="section-title">Я працюю з найкращими брендами</h2>
+        <div class="brands-grid">
+            <div class="brand-item">
+                <img src="images/mac_logo.png" alt="MAC Cosmetics">
+                <p>MAC</p>
+            </div>
+            <div class="brand-item">
+                <img src="images/dior_logo.png" alt="Dior Beauty">
+                <p>Dior</p>
+            </div>
+            <div class="brand-item">
+                <img src="images/esteelauder_logo.png" alt="Estee Lauder">
+                <p>Estee Lauder</p>
+            </div>
+            <div class="brand-item">
+                <img src="images/anastasia_logo.png" alt="Anastasia Beverly Hills">
+                <p>Anastasia BH</p>
+            </div>
+            <div class="brand-item">
+                <img src="images/nars_logo.png" alt="NARS Cosmetics">
+                <p>NARS</p>
+            </div>
+            <div class="brand-item">
+                <img src="images/toofaced_logo.png" alt="Too Faced Cosmetics">
+                <p>Too Faced</p>
+            </div>
+             <div class="brand-item">
+                <img src="images/hudabeauty_logo.png" alt="Huda Beauty">
+                <p>Huda Beauty</p>
+            </div>
+             <div class="brand-item">
+                <img src="images/charlottetilbury_logo.png" alt="Charlotte Tilbury">
+                <p>Charlotte Tilbury</p>
+            </div>
+        </div>
+    </section>
 
-    function renderTable(lang) {
-      const t = translations[lang];
-      document.getElementById('main-title').textContent = t.mainTitle;
-      document.getElementById('main-desc').textContent = t.mainDesc;
-      document.getElementById('th-num').textContent = t.thNum;
-      document.getElementById('th-bank').textContent = t.thBank;
-      document.getElementById('th-rating').textContent = t.thRating;
-      document.getElementById('th-stress').textContent = t.thStress;
-      document.getElementById('th-loyal').textContent = t.thLoyal;
-      document.getElementById('th-analyst').textContent = t.thAnalyst;
-      document.getElementById('th-dep').textContent = t.thDep;
-      document.getElementById('footer-note').innerHTML = t.footer;
-      document.querySelector('label[for="search"]').textContent = t.search;
-      document.querySelector('label[for="type-filter"]').textContent = t.type;
-      document.querySelector('label[for="sort"]').textContent = t.sort;
+    <section id="philosophy" class="philosophy">
+        <h2 class="section-title">Моя філософія краси</h2>
+        <div class="philosophy-content">
+            <img src="images/work6.jpg" alt="Элегантный макияж" style="max-width: 600px;">
+            <div class="philosophy-text">
+                <p>Я твердо переконана, що **справжня краса йде зсередини**, а макіяж лише допомагає її делікатно підкреслити та розкрити. Моя мета — не змінити вас до невпізнання, а розкрити ваш **унікальний потенціал**, надавши образу вишуканості, елегантності та абсолютної впевненості у собі. Кожен штрих пензля, кожен відтінок пудри підбирається **індивідуально**, щоб створити гармонійний, цілісний та ідеальний образ, який пасуватиме саме вам і вашому настрою.</p>
+                <p>Я постійно **вдосконалюю свої навички**, відвідую майстер-класи, стежу за новими тенденціями та інноваціями в індустрії краси, щоб завжди пропонувати вам **найсучасніші та найефективніші рішення**. Довірте мені свій образ, і ви не лише будете почувати себе неперевершено, але й отримаєте цінні поради щодо догляду за шкірою та нанесення макіяжу, які допоможуть вам підтримувати красу щодня.</p>
+            </div>
+        </div>
+    </section>
 
-      let filtered = banks.filter(b => {
-        let matchType = currentType === 'all' || b.type === currentType;
-        let matchSearch = b.name.toLowerCase().includes(currentSearch.toLowerCase());
-        return matchType && matchSearch;
-      });
+    <section id="testimonials" class="testimonials">
+        <h2 class="section-title">Що кажуть мої клієнти</h2>
+        <div class="testimonial-grid">
+            <div class="testimonial-item">
+                <p>"Алла - справжній професіонал своєї справи! Макіяж тримався ідеально весь день, я почувалася справжньою королевою на своєму весіллі. Дуже рекомендую її послуги!"</p>
+                <div class="client-name">— Ольга К., Наречена</div>
+            </div>
+            <div class="testimonial-item">
+                <p>"Завдяки Аллі я вперше за довгий час відчула себе по-справжньому красивою та впевненою. Денний макіяж був легким, свіжим та підкреслив мої найкращі риси – саме те, що я хотіла."</p>
+                <div class="client-name">— Ірина П., Клієнтка</div>
+            </div>
+            <div class="testimonial-item">
+                <p>"Кожен раз, коли Алла робить мені макіяж для фотосесії, результат перевершує всі очікування. Вона просто чарівниця, яка вміє бачити і створювати ідеал!"</p>
+                <div class="client-name">— Вікторія Л., Модель</div>
+            </div>
+            <div class="testimonial-item">
+                <p>"Просто вражена! Алла створила такий вечірній образ, про який я навіть не мріяла. Макіяж був бездоганним і витримав весь вечір."</p>
+                <div class="client-name">— Анна Р., Гостя свята</div>
+            </div>
+        </div>
+    </section>
 
-      if (currentSort === 'rating') {
-        filtered.sort((a, b) => parseFloat(b.rating) - parseFloat(a.rating));
-      } else if (currentSort === 'name') {
-        filtered.sort((a, b) => a.name.localeCompare(b.name, lang));
-      } else {
-        filtered.sort((a, b) => a.num - b.num);
-      }
+    <section id="faq" class="faq">
+        <h2 class="section-title">Часті запитання</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">
+                    Скільки часу займає макіяж? <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Зазвичай, **весільний макіяж** займає від 1.5 до 2 годин, враховуючи всі деталі та побажання. **Вечірній макіяж** виконується за 1 - 1.5 години, а для **денного макіяжу** потрібно близько 45-60 хвилин. Тривалість також залежить від складності образу та стану шкіри.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Чи робите ви пробний весільний макіяж? <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Так, **пробний макіяж є обов'язковою частиною весільного пакета** і дуже рекомендований. Це дозволяє нам детально обговорити всі ваші побажання, протестувати косметику на шкірі, внести корективи та переконатися, що у ваш важливий день ви будете виглядати ідеально, без зайвих стресів.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Якими косметичними брендами ви користуєтесь? <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Я працюю виключно з **професійною та люксовою косметикою** перевірених світових брендів, які зарекомендували себе як найкращі за якістю та стійкістю. Серед них: **MAC, Dior, Estee Lauder, Anastasia Beverly Hills, NARS, Too Faced, Huda Beauty, Charlotte Tilbury** та багато інших. Це гарантує бездоганний результат та безпеку для вашої шкіри.</p>
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">
+                    Як записатися на макіяж? <span class="icon"><i class="fas fa-chevron-down"></i></span>
+                </div>
+                <div class="faq-answer">
+                    <p>Ви можете записатися на макіяж, зателефонувавши мені за номером **+38 (063) 987 10 00** або написавши повідомлення в **Instagram Direct** за посиланням: <a href="https://www.instagram.com/alla_shevchuk_makeup/" target="_blank">@alla_shevchuk_makeup</a>. Буду рада відповісти на всі ваші запитання та підібрати зручний час для візиту!</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
-      let html = "";
-      filtered.forEach((b, i) => {
-        html += `<tr>
-          <td>${b.num}</td>
-          <td class="bank-name">${b.name}</td>
-          <td>${b.rating}</td>
-          <td>${b.stress}</td>
-          <td>${b.loyal}</td>
-          <td>${b.analyst}</td>
-          <td>${b.dep}</td>
-          <td><button class="btn-details" data-key="${b.key}">${t.btn}</button></td>
-        </tr>`;
-      });
-      document.getElementById('banks-table').innerHTML = html;
+    <section id="contact" class="contact">
+        <h2 class="section-title">Зв'яжіться зі мною</h2>
+        <div class="contact-info">
+            <p><i class="fas fa-map-marker-alt"></i> Переяслав, Київська область, Україна</p>
+            <p><i class="fas fa-phone"></i> <a href="tel:+380639871000">+38 (063) 987 10 00</a></p>
+            <p><i class="fas fa-envelope"></i> <a href="mailto:alla.makeup@email.com">alla.makeup@email.com</a></p>
+        </div>
+        <div class="social-icons">
+            <a href="https://www.instagram.com/alla_shevchuk_makeup/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" target="_blank" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
+            <a href="#" target="_blank" aria-label="Viber"><i class="fab fa-viber"></i></a>
+        </div>
+        <a href="https://www.instagram.com/alla_shevchuk_makeup/" class="btn" target="_blank" style="margin-top: 50px;">Записатися зараз!</a>
+    </section>
 
-      document.querySelectorAll('.btn-details').forEach(btn => {
-        btn.onclick = function() {
-          showModal(this.dataset.key);
-        };
-      });
-    }
+    <footer>
+        <p>&copy; 2025 Alla Shevchuk Make-up. Всі права захищені. З любов’ю з Переяслава 💗</p>
+    </footer>
 
-    function showModal(bankKey) {
-      const t = translations[currentLang];
-      const bank = banks.find(b => b.key === bankKey);
-      const details = bankDetails[bankKey][currentLang];
-      document.getElementById('modal-title').textContent = bank.name;
-      document.getElementById('modal-list').innerHTML = details.map(item => `<li>${item}</li>`).join('');
-      document.getElementById('modal-link').textContent = t.modalLink + ' →';
-      document.getElementById('modal-link').href = bank.link;
-      document.getElementById('modal-bg').classList.add('active');
-    }
-    document.getElementById('close-modal').onclick = function() {
-      document.getElementById('modal-bg').classList.remove('active');
-    };
-    document.getElementById('modal-bg').onclick = function(e) {
-      if (e.target === this) this.classList.remove('active');
-    };
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // JavaScript для анимации секций при прокрутке
+            const sections = document.querySelectorAll('section');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('is-visible');
+                        // Если это секция, запускаем анимацию для заголовка
+                        const title = entry.target.querySelector('.section-title');
+                        if (title) {
+                            title.style.animation = 'none'; // Сбросить, чтобы можно было запустить заново
+                            void title.offsetWidth; // Триггер рефлоу
+                            title.style.animation = null; // Применить анимацию
+                        }
+                        observer.unobserve(entry.target); // Остановить наблюдение после появления
+                    }
+                });
+            }, { threshold: 0.15 });
 
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
-        this.classList.add('active');
-        currentLang = this.dataset.lang;
-        renderTable(currentLang);
-      });
-    });
+            sections.forEach(section => {
+                observer.observe(section);
+            });
 
-    document.getElementById('search').addEventListener('input', function() {
-      currentSearch = this.value;
-      renderTable(currentLang);
-    });
+            // JavaScript для FAQ (аккордеон)
+            const faqQuestions = document.querySelectorAll('.faq-question');
+            faqQuestions.forEach(question => {
+                question.addEventListener('click', () => {
+                    const faqItem = question.closest('.faq-item');
+                    const answer = faqItem.querySelector('.faq-answer');
 
-    document.getElementById('type-filter').addEventListener('change', function() {
-      currentType = this.value;
-      renderTable(currentLang);
-    });
+                    // Закрыть все остальные открытые ответы
+                    document.querySelectorAll('.faq-item.active').forEach(item => {
+                        if (item !== faqItem) {
+                            item.classList.remove('active');
+                            item.querySelector('.faq-answer').style.maxHeight = "0";
+                        }
+                    });
 
-    document.getElementById('sort').addEventListener('change', function() {
-      currentSort = this.value;
-      renderTable(currentLang);
-    });
+                    // Открыть или закрыть текущий
+                    faqItem.classList.toggle('active');
+                    if (faqItem.classList.contains('active')) {
+                        answer.style.maxHeight = answer.scrollHeight + "px";
+                    } else {
+                        answer.style.maxHeight = "0";
+                    }
+                });
+            });
 
-    renderTable('uk');
-  </script>
+            // JavaScript для Navbar (изменение фона при скролле)
+            const navbar = document.querySelector('.navbar');
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
