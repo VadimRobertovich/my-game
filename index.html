@@ -1,5 +1,4 @@
-
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
@@ -10,22 +9,33 @@
     <meta property="og:image" content="images/preview.jpg">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <title>Alla Shevchuk Make-up | Ваш ідеальний образ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            --primary-color: #e7a2b9; /* Насыщенный розовый */
-            --primary-dark-color: #d388a1; /* Темнее розовый */
-            --light-pink: #fef0f5; /* Очень светлый розовый для фона */
-            --dark-text: #2c3e50; /* Глубокий темный для основного текста */
-            --light-text: #7f8c8d; /* Светлый серый для дополнительного текста */
-            --header-text-color: white;
-            --bg-body-color: #f8f8f8; /* Очень светлый серый/розовый фон */
-            --bg-footer-color: #fce9f1;
-            --font-display: 'Cormorant Garamond', serif; /* Более элегантный шрифт для заголовков */
-            --font-body: 'Montserrat', sans-serif; /* Современный шрифт для тела текста */
-            --section-padding-desktop: 100px 20px; /* Отступы для десктопа */
-            --section-padding-mobile: 60px 15px; /* Отступы для мобильных */
+            /* Оновлена, більш витончена палітра */
+            --primary-accent: #7C2A48; /* Глибокий, насичений винний */
+            --primary-accent-dark: #6C243F; /* Темніший відтінок для ховеру */
+            --text-dark: #333333; /* М'який темно-сірий */
+            --text-light: #666666; /* Середній сірий для додаткового тексту */
+            --bg-light: #F9F9F9; /* Дуже світлий, майже білий фон, трохи тепліший */
+            --bg-section: #FFFFFF; /* Чистий білий фон для основних секцій - буде перекриватися фоновим зображенням */
+            --header-text-color: #FFFFFF; /* Білий для тексту в хедері */
+
+            --soft-border: #EBEBEB; /* Дуже світлий сірий для ліній */
+            --light-bg-card: #FCFCFC; /* Ледь помітний відтінок для карток */
+
+            /* Шрифти */
+            --font-display: 'Cormorant Garamond', serif;
+            --font-body: 'Montserrat', sans-serif;
+
+            /* Відступи */
+            --section-padding-desktop: 120px 40px;
+            --section-padding-mobile: 80px 20px;
+
+            /* Тіні */
+            --shadow-subtle: 0 8px 30px rgba(0, 0, 0, 0.04);
+            --shadow-hover: 0 15px 45px rgba(0, 0, 0, 0.08);
         }
 
         * {
@@ -35,31 +45,33 @@
         }
 
         html {
-            scroll-behavior: smooth; /* Плавная прокрутка */
+            scroll-behavior: smooth;
         }
 
         body {
             font-family: var(--font-body);
-            color: var(--dark-text);
-            background-color: var(--bg-body-color);
-            line-height: 1.8;
-            letter-spacing: 0.03em;
-            overflow-x: hidden; /* Предотвратить горизонтальную прокрутку */
+            color: var(--text-dark);
+            background-color: var(--bg-light);
+            line-height: 1.7;
+            letter-spacing: 0.02em;
+            overflow-x: hidden;
         }
 
         /* --- Header & Navigation --- */
         header {
-            background: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url('images/lipstick-bg.jpg') center/cover no-repeat fixed;
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('images/баннер1.png') center/cover no-repeat fixed;
             height: 100vh;
             color: var(--header-text-color);
             text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: center;
+            justify-content: flex-end; /* Вирівнює вміст до низу */
+            align-items: center;
             animation: fadeIn 2s ease-in-out;
-            position: relative;
+            position: relative; /* Важливо для абсолютного позиціонування кнопки */
             overflow: hidden;
             padding: 20px;
+            padding-bottom: 80px; /* Зменшуємо відступ, так як кнопка буде позиціонуватися абсолютно */
         }
 
         .navbar {
@@ -67,24 +79,24 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.7);
-            padding: 1.2rem 0;
+            background-color: rgba(0, 0, 0, 0.85); /* Трохи світліше, але все ще темний */
+            padding: 1rem 0;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
             transition: background-color 0.3s ease, padding 0.3s ease;
         }
 
         .navbar.scrolled {
-            background-color: rgba(0, 0, 0, 0.9);
-            padding: 0.8rem 0;
+            background-color: rgba(0, 0, 0, 0.95);
+            padding: 0.7rem 0;
         }
 
         .navbar nav ul {
             list-style: none;
             display: flex;
             justify-content: center;
-            gap: 2.5rem;
-            margin: 0; /* Убрать дефолтные отступы списка */
+            gap: 3.5rem;
+            margin: 0;
             padding: 0;
         }
 
@@ -95,6 +107,8 @@
             transition: color 0.3s ease, transform 0.2s ease;
             font-size: 1.15rem;
             position: relative;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
         }
 
         .navbar nav a::after {
@@ -102,9 +116,9 @@
             position: absolute;
             width: 0;
             height: 2px;
-            background: var(--primary-color);
+            background: var(--primary-accent);
             left: 50%;
-            bottom: -5px;
+            bottom: -8px;
             transform: translateX(-50%);
             transition: width 0.3s ease;
         }
@@ -114,12 +128,11 @@
         }
 
         .navbar nav a:hover {
-            color: var(--primary-color);
+            color: var(--primary-accent);
         }
 
-        /* Mobile Menu Button */
         .menu-toggle {
-            display: none; /* Скрыто на десктопе */
+            display: none;
             position: absolute;
             right: 20px;
             top: 50%;
@@ -129,63 +142,99 @@
             color: var(--header-text-color);
             font-size: 2rem;
             cursor: pointer;
-            z-index: 1100; /* Выше чем navbar nav ul */
-        }
-
-        header h1 {
-            font-family: var(--font-display);
-            font-size: 4.5rem;
-            animation: fadeInDown 1.5s ease-in-out;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.8);
-            margin-bottom: 0.5rem;
-        }
-
-        header p {
-            font-size: 1.4rem;
-            margin: 1rem 0 2.5rem;
-            animation: fadeInUp 1.8s ease-in-out;
-            max-width: 700px;
-            margin-left: auto;
-            margin-right: auto;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.7);
+            z-index: 1100;
         }
 
         .btn {
-            background: var(--primary-color);
+            background: var(--primary-accent);
             color: var(--header-text-color);
-            padding: 1.2rem 3rem;
+            padding: 1.2rem 3rem; /* Зменшення розміру кнопки */
             border: none;
-            border-radius: 50px;
+            border-radius: 8px; /* Менший радіус для більш сучасної форми */
             text-decoration: none;
             font-weight: 600;
             transition: all 0.4s ease;
             animation: fadeIn 2s ease-in-out;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Делікатніша тінь */
             display: inline-block;
-            font-size: 1.1rem;
+            font-size: 1.1rem; /* Трохи менший шрифт */
             text-transform: uppercase;
-            letter-spacing: 0.05em;
+            letter-spacing: 0.08em; /* Трохи менший інтервал */
+            position: absolute; /* Абсолютне позиціонування */
+            bottom: 40px; /* Відступ від низу хедера */
+            left: 50%;
+            transform: translateX(-50%); /* Центруємо кнопку */
+            overflow: hidden;
+            z-index: 10; /* Переконаємося, що кнопка поверх інших елементів */
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent); /* Більш делікатний блиск */
+            transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+            z-index: -1;
+        }
+
+        .btn:hover::before {
+            left: 100%;
         }
 
         .btn:hover {
-            background: var(--primary-dark-color);
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            background: var(--primary-accent-dark);
+            transform: translateY(-8px) scale(1.04) translateX(-50%); /* Зберігаємо центрування */
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4); /* Делікатніша тінь при ховері */
         }
 
         /* --- Global Section Styles --- */
         section {
             padding: var(--section-padding-desktop);
             max-width: 1200px;
-            margin: 0 auto 80px auto;
+            margin: 0 auto 100px auto;
             opacity: 0;
             transform: translateY(70px);
             transition: opacity 1s ease-out, transform 1s ease-out;
-            background-color: white;
-            border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            /* background-color: var(--bg-section); */ /* Це буде перекриватися фоновим зображенням */
+            border-radius: 18px; /* Трохи більші округлення */
+            box-shadow: var(--shadow-subtle);
             position: relative;
             overflow: hidden;
+            border-top: 1px solid var(--soft-border);
+            /* Додаємо базовий фон для розділів, якщо не вказано специфічного фону */
+            background-color: var(--bg-section); /* Ви можете залишити це як запасний варіант */
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed; /* Для ефекту паралаксу */
+        }
+
+        /* Стилі для фонових зображень розділів */
+        #about {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('images/background-about.jpg') center/cover fixed;
+        }
+
+        #services {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('images/background-services.jpg') center/cover fixed;
+        }
+
+        #philosophy {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('images/background-philosophy.jpg') center/cover fixed;
+        }
+
+        #testimonials {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('images/background-testimonials.jpg') center/cover fixed;
+        }
+
+        #faq {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('images/background-faq.jpg') center/cover fixed;
+        }
+
+        #contact {
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('images/background-contact.jpg') center/cover fixed;
         }
 
         section:last-of-type {
@@ -200,104 +249,99 @@
         .section-title {
             text-align: center;
             font-family: var(--font-display);
-            font-size: 3.5rem;
-            margin-bottom: 60px;
-            color: var(--primary-dark-color);
+            font-size: 4rem;
+            margin-bottom: 70px;
+            color: var(--primary-accent);
             position: relative;
             text-transform: uppercase;
-            letter-spacing: 0.08em;
+            letter-spacing: 0.08em; /* Трохи менший інтервал для витонченості */
+            font-weight: 700;
         }
 
         .section-title::after {
             content: '';
             display: block;
-            width: 80px;
-            height: 4px;
-            background: var(--primary-color);
-            margin: 20px auto 0;
+            width: 100px;
+            height: 5px;
+            background: var(--primary-accent);
+            margin: 25px auto 0;
             border-radius: 5px;
             transform: scaleX(0);
             animation: expandLine 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
-            animation-delay: 0.3s;
         }
 
         /* --- About Section Specifics --- */
+        .about .section-title {
+            color: var(--primary-accent);
+        }
+
         .about-content {
             display: flex;
             flex-direction: row;
             align-items: center;
-            gap: 50px;
+            gap: 60px;
             justify-content: center;
         }
         .about-content img {
-            max-width: 45%;
+            max-width: 48%;
             height: auto;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 15px;
+            box-shadow: var(--shadow-subtle);
             transition: transform 0.4s ease, box-shadow 0.4s ease;
             object-fit: cover;
             flex-shrink: 0;
+            border: 1px solid var(--soft-border);
         }
         .about-content img:hover {
-            transform: scale(1.03);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+            box-shadow: var(--shadow-hover);
         }
         .about-text {
             flex: 1;
-            max-width: 50%;
+            max-width: 52%;
             text-align: left;
         }
         .about-content p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark-text);
+            font-size: 1.15rem;
+            margin-bottom: 1.8rem;
+            color: var(--text-dark);
+        }
+        .about-content p strong {
+            color: var(--primary-accent-dark);
+            font-weight: 600;
         }
 
         /* --- Services Section Specifics --- */
+        .services .section-title {
+            color: var(--primary-accent);
+        }
+
         .services-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 40px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+            gap: 50px;
+            margin-top: 50px;
         }
 
         .service-item {
-            background-color: var(--light-pink);
-            padding: 35px;
+            background-color: var(--light-bg-card);
+            padding: 40px;
             border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.05);
             text-align: center;
-            transition: transform 0.4s ease, box-shadow 0.4s ease, background-color 0.3s ease;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
             position: relative;
             overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 220px;
-        }
-
-        .service-item::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(45deg, var(--primary-color) 0%, var(--primary-dark-color) 100%);
-            transform: scaleY(0);
-            transform-origin: bottom;
-            transition: transform 0.4s ease;
-            z-index: 0;
-        }
-
-        .service-item:hover::before {
-            transform: scaleY(1);
+            min-height: 260px;
+            border: 1px solid var(--soft-border);
         }
 
         .service-item:hover {
-            transform: translateY(-12px);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
-            color: white;
+            transform: translateY(-8px); /* Зменшена інтенсивність анімації */
+            box-shadow: var(--shadow-hover);
         }
 
         .service-item h3, .service-item p {
@@ -308,252 +352,250 @@
 
         .service-item h3 {
             font-family: var(--font-display);
-            font-size: 1.8rem;
-            color: var(--primary-dark-color);
-            margin-bottom: 18px;
-        }
-
-        .service-item:hover h3 {
-            color: white;
+            font-size: 2.3rem;
+            color: var(--primary-accent-dark);
+            margin-bottom: 20px;
+            letter-spacing: 0.05em;
         }
 
         .service-item p {
-            color: var(--light-text);
-            font-size: 1.05rem;
+            color: var(--text-dark);
+            font-size: 1.08rem;
             margin-bottom: 0;
+            line-height: 1.6;
         }
 
-        .service-item:hover p {
-            color: rgba(255, 255, 255, 0.9);
+        .service-item p strong {
+            color: var(--text-dark);
         }
 
-        /* --- Brands Section Specifics --- */
-        .brands-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-            gap: 35px;
-            justify-items: center;
-            align-items: center;
-            margin-top: 40px;
-        }
-
-        .brand-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center;
-            padding: 20px;
-            border-radius: 10px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            background-color: #fcfcfc;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-        }
-        .brand-item:hover {
-            transform: translateY(-8px) scale(1.05);
-            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .brand-item img {
-            max-width: 90px;
-            height: auto;
-            filter: grayscale(90%);
-            opacity: 0.6;
-            transition: filter 0.4s ease, opacity 0.4s ease;
-            margin-bottom: 10px;
-        }
-        .brand-item img:hover {
-            filter: grayscale(0%);
-            opacity: 1;
-        }
-        .brand-item p {
-            font-weight: 500;
-            color: var(--dark-text);
-            font-size: 1rem;
-            margin-top: 0;
-        }
 
         /* --- Philosophy Section Specifics --- */
+        .philosophy .section-title {
+            color: var(--primary-accent);
+        }
+
         .philosophy-content {
             display: flex;
             flex-direction: row-reverse;
             align-items: center;
-            gap: 50px;
+            gap: 60px;
             text-align: left;
             justify-content: center;
         }
         .philosophy-content img {
-            max-width: 45%;
+            max-width: 48%;
             height: auto;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            border-radius: 15px;
+            box-shadow: var(--shadow-subtle);
             transition: transform 0.4s ease, box-shadow 0.4s ease;
             object-fit: cover;
             flex-shrink: 0;
+            border: 1px solid var(--soft-border);
         }
         .philosophy-content img:hover {
-            transform: scale(1.03);
-            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+            transform: scale(1.02);
+            box-shadow: var(--shadow-hover);
         }
         .philosophy-text {
             flex: 1;
-            max-width: 50%;
+            max-width: 52%;
         }
         .philosophy-content p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            color: var(--dark-text);
+            font-size: 1.15rem;
+            margin-bottom: 1.8rem;
+            color: var(--text-dark);
+        }
+        .philosophy-content p strong {
+            color: var(--primary-accent-dark);
+            font-weight: 600;
         }
 
+
         /* --- Testimonials Section Specifics --- */
+        .testimonials .section-title {
+            color: var(--primary-accent);
+        }
+
         .testimonial-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-            margin-top: 40px;
+            grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
+            gap: 40px;
+            margin-top: 50px;
         }
         .testimonial-item {
-            background-color: var(--light-pink);
-            padding: 30px;
+            background-color: var(--light-bg-card);
+            padding: 38px;
             border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 18px rgba(0, 0, 0, 0.04);
             text-align: center;
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
-            min-height: 200px;
+            min-height: 240px;
+            border: 1px solid var(--soft-border);
         }
         .testimonial-item:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px); /* Зменшена інтенсивність анімації */
+            box-shadow: var(--shadow-hover);
         }
         .testimonial-item p {
             font-style: italic;
-            margin-bottom: 20px;
-            color: var(--dark-text);
-            font-size: 1.05rem;
+            margin-bottom: 25px;
+            color: var(--text-dark);
+            font-size: 1.08rem;
+            line-height: 1.6;
         }
         .testimonial-item .client-name {
             font-weight: 600;
-            color: var(--primary-dark-color);
+            color: var(--primary-accent-dark);
             font-size: 1.1rem;
             display: block;
             margin-top: auto;
+            letter-spacing: 0.03em;
         }
 
         /* --- FAQ Section Specifics --- */
+        .faq .section-title {
+            color: var(--primary-accent);
+        }
+
         .faq-container {
-            margin-top: 40px;
+            margin-top: 50px;
         }
         .faq-item {
-            background-color: var(--light-pink);
-            margin-bottom: 20px;
-            border-radius: 12px;
+            background-color: var(--light-bg-card);
+            margin-bottom: 25px;
+            border-radius: 15px;
             overflow: hidden;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.8);
+            box-shadow: 0 4px 18px rgba(0, 0, 0, 0.04);
+            border: 1px solid var(--soft-border);
         }
         .faq-question {
-            padding: 20px 30px;
-            background-color: var(--primary-color);
-            color: white;
+            padding: 22px 30px;
+            background-color: var(--light-bg-card);
+            color: var(--text-dark);
             cursor: pointer;
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: 500;
-            font-size: 1.15rem;
-            transition: background-color 0.3s ease;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 1.18rem;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            border-bottom: 1px solid var(--soft-border);
+            letter-spacing: 0.02em;
         }
         .faq-question:hover {
-            background-color: var(--primary-dark-color);
+            background-color: var(--primary-accent);
+            color: white;
+        }
+        .faq-question:hover .icon {
+            color: white;
         }
         .faq-question .icon {
-            font-size: 1.3rem;
-            transition: transform 0.3s ease;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            transition: transform 0.3s ease, color 0.3s ease;
         }
         .faq-answer {
             padding: 0 30px;
             max-height: 0;
-            overflow: hidden;
+            overflow: hidden; /* This is controlled by JS. */
+            overflow-y: auto; /* Додано для прокрутки, якщо вміст більший за max-height */
             transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
-            background-color: white;
-            color: var(--light-text);
-            font-size: 1.05rem;
+            background-color: var(--light-bg-card);
+            color: var(--text-dark);
+            font-size: 1.08rem;
+            line-height: 1.7;
+        }
+        .faq-answer p {
+            margin-bottom: 1.2em;
+            color: inherit;
+        }
+        .faq-answer p:last-child {
+            margin-bottom: 0;
         }
         .faq-item.active .faq-answer {
-            max-height: 300px; /* Увеличил максимальную высоту для больших ответов */
+            max-height: 9999px; /* Встановлено дуже велике значення як CSS fallback */
             padding: 20px 30px;
+        }
+        .faq-item.active .faq-question {
+             background-color: var(--primary-accent);
+             color: white;
+             border-bottom-color: transparent;
         }
         .faq-item.active .faq-question .icon {
             transform: rotate(180deg);
+            color: white;
         }
+
 
         /* --- Contact Section Specifics --- */
         .contact-info {
             display: flex;
             flex-direction: column;
             align-items: center;
-            gap: 25px;
-            margin-bottom: 40px;
+            gap: 30px;
+            margin-bottom: 50px;
         }
 
         .contact-info p {
-            font-size: 1.2rem;
-            color: var(--dark-text);
+            font-size: 1.25rem;
+            color: var(--text-dark);
             display: flex;
             align-items: center;
+            font-weight: 500;
         }
         .contact-info p i {
-            margin-right: 15px;
-            color: var(--primary-dark-color);
-            font-size: 1.5rem;
+            margin-right: 18px;
+            color: var(--primary-accent);
+            font-size: 1.7rem;
         }
         .contact-info a {
-            color: var(--primary-dark-color);
+            color: var(--primary-accent-dark);
             text-decoration: none;
-            transition: color 0.3s ease;
+            transition: color 0.3s ease, text-decoration 0.3s ease;
         }
         .contact-info a:hover {
-            color: var(--primary-color);
+            color: var(--primary-accent);
             text-decoration: underline;
         }
 
         .social-icons {
-            margin-top: 30px;
+            margin-top: 40px;
         }
         .social-icons a {
-            font-size: 2.8rem;
-            color: var(--primary-dark-color);
-            margin: 0 20px;
+            font-size: 3.2rem;
+            color: var(--primary-accent-dark);
+            margin: 0 25px;
             transition: transform 0.4s ease, color 0.4s ease;
         }
         .social-icons a:hover {
-            color: var(--primary-color);
-            transform: translateY(-8px) rotate(5deg);
+            color: var(--primary-accent);
+            transform: translateY(-10px) rotate(5deg);
         }
 
         /* --- Footer --- */
         footer {
-            background: var(--bg-footer-color);
+            background: var(--text-dark);
             text-align: center;
-            padding: 30px;
+            padding: 40px;
             font-size: 1rem;
-            color: #666;
-            margin-top: 80px;
-            border-top: 1px solid #f0e0e5;
+            color: #AAAAAA;
+            margin-top: 100px;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         footer a {
-            color: var(--primary-dark-color);
+            color: var(--primary-accent);
             text-decoration: none;
             transition: color 0.3s ease;
         }
 
         footer a:hover {
-            color: var(--primary-color);
+            color: var(--primary-accent-dark);
         }
 
         /* --- Animations --- */
@@ -574,33 +616,29 @@
 
         @keyframes expandLine {
             0% { width: 0; transform: translateX(-50%) scaleX(0); }
-            100% { width: 80px; transform: translateX(-50%) scaleX(1); }
+            100% { width: 100px; transform: translateX(-50%) scaleX(1); }
         }
 
 
         /* --- Media Queries for Responsiveness --- */
         @media (max-width: 992px) {
-            header h1 {
-                font-size: 3.5rem;
-            }
-            header p {
-                font-size: 1.2rem;
+            header {
+                padding-bottom: 60px; /* Змінюємо відступ для мобільних */
             }
             .navbar nav ul {
-                gap: 1.5rem;
+                gap: 2.5rem;
             }
             .section-title {
-                font-size: 2.8rem;
-                margin-bottom: 40px;
+                font-size: 3.5rem;
+                margin-bottom: 50px;
             }
             .about-content, .philosophy-content {
                 flex-direction: column;
-                gap: 30px;
+                gap: 40px;
                 text-align: center;
             }
             .about-content img, .philosophy-content img {
                 max-width: 90%;
-                margin: 0 auto;
             }
             .about-text, .philosophy-text {
                 max-width: 100%;
@@ -611,147 +649,159 @@
             }
             section {
                 padding: var(--section-padding-mobile);
-                margin-bottom: 60px;
+                margin-bottom: 80px;
             }
-
-            /* Mobile Navigation */
             .navbar nav ul {
-                display: none; /* Скрыть меню по умолчанию на мобильных */
+                display: none;
                 flex-direction: column;
                 position: absolute;
-                top: 100%; /* Под навигационной панелью */
+                top: 100%;
                 left: 0;
                 width: 100%;
-                background-color: rgba(0, 0, 0, 0.95); /* Темный фон для меню */
+                background-color: rgba(0, 0, 0, 0.98);
                 padding: 20px 0;
-                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
                 transition: transform 0.4s ease-out, opacity 0.4s ease-out;
-                transform: translateY(-100%); /* Сдвинуть вверх */
+                transform: translateY(-100%);
                 opacity: 0;
-                pointer-events: none; /* Не реагировать на события, когда скрыто */
+                pointer-events: none;
             }
-
             .navbar nav ul.active {
-                display: flex; /* Показать меню при активации */
-                transform: translateY(0); /* Сдвинуть вниз */
+                display: flex;
+                transform: translateY(0);
                 opacity: 1;
-                pointer-events: auto; /* Реагировать на события */
+                pointer-events: auto;
             }
-
             .navbar nav li {
                 margin: 10px 0;
             }
             .navbar nav a {
-                display: block; /* Сделать ссылки блочными для удобства нажатия */
+                display: block;
                 padding: 10px 0;
                 font-size: 1.2rem;
             }
-
             .menu-toggle {
-                display: block; /* Показать кнопку-бургер */
+                display: block;
+            }
+            header {
+                background-attachment: scroll;
+            }
+            .btn {
+                bottom: 30px; /* Зменшуємо відступ від низу хедера на мобільних */
+                padding: 1rem 2.5rem; /* Зменшення розміру кнопки */
+                font-size: 1rem;
+            }
+
+            /* Медіа-запити для фонів розділів на мобільних */
+            #about, #services, #philosophy, #testimonials, #faq, #contact {
+                background-attachment: scroll; /* Змінюємо на scroll для кращої продуктивності на мобільних */
             }
         }
 
         @media (max-width: 768px) {
-            header h1 {
-                font-size: 2.8rem;
-            }
-            header p {
-                font-size: 1rem;
+            header {
+                padding-bottom: 50px;
             }
             .navbar {
-                padding: 1rem 0; /* Уменьшить padding навбара на 768px */
+                padding: 0.8rem 0;
             }
             .navbar.scrolled {
-                padding: 0.5rem 0;
+                padding: 0.6rem 0;
             }
             .navbar nav a {
-                font-size: 1.1rem; /* Уменьшить шрифт ссылок в меню */
-            }
-            .btn {
-                padding: 1rem 2rem;
                 font-size: 1rem;
             }
+            .btn {
+                bottom: 25px;
+                padding: 0.9rem 2.2rem;
+                font-size: 0.95rem;
+            }
             .section-title {
-                font-size: 2.2rem;
-                margin-bottom: 30px;
+                font-size: 2.8rem;
+                margin-bottom: 40px;
             }
             .about-content img, .philosophy-content img {
                 max-width: 100%;
             }
             .about-content p, .philosophy-content p, .service-item p, .testimonial-item p, .faq-answer p {
-                font-size: 0.95rem;
+                font-size: 1rem;
             }
             .service-item h3 {
-                font-size: 1.5rem;
-            }
-            .brands-grid {
-                grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-                gap: 25px;
-            }
-            .brand-item img {
-                max-width: 70px;
+                font-size: 2rem;
             }
             .testimonial-item {
-                padding: 25px;
+                padding: 30px;
+                min-height: 210px;
             }
             .faq-question {
-                font-size: 1rem;
-                padding: 15px 20px;
+                font-size: 1.08rem;
+                padding: 18px 25px;
             }
             .faq-answer {
-                padding: 0 20px;
+                padding: 0 25px;
             }
             .faq-item.active .faq-answer {
-                padding: 15px 20px;
+                padding: 18px 25px;
             }
             .contact-info p {
-                font-size: 1rem;
+                font-size: 1.1rem;
             }
             .contact-info p i {
-                font-size: 1.2rem;
+                font-size: 1.4rem;
             }
             .social-icons a {
-                font-size: 2rem;
-                margin: 0 10px;
+                font-size: 2.5rem;
+                margin: 0 15px;
             }
             section {
                 padding: var(--section-padding-mobile);
-                margin-bottom: 40px;
+                margin-bottom: 60px;
             }
             footer {
-                padding: 20px;
-                font-size: 0.85rem;
+                padding: 30px;
+                font-size: 0.9rem;
             }
         }
 
         @media (max-width: 480px) {
-            header h1 {
-                font-size: 2rem;
-            }
-            header p {
-                font-size: 0.85rem;
+            header {
+                padding-bottom: 40px;
             }
             .btn {
-                padding: 0.7rem 1.4rem;
-                font-size: 0.85rem;
-            }
-            .section-title {
-                font-size: 1.6rem;
-            }
-            .navbar nav ul {
-                gap: 0.8rem;
-                padding: 0.8rem 0;
-            }
-            .navbar nav a {
+                bottom: 20px;
+                padding: 0.8rem 2rem;
                 font-size: 0.9rem;
             }
+            .section-title {
+                font-size: 2.2rem;
+            }
+            .navbar nav ul {
+                gap: 1.5rem;
+                padding: 1rem 0;
+            }
+            .navbar nav a {
+                font-size: 1.1rem;
+            }
             .service-item {
-                min-height: 180px; /* Немного уменьшим высоту карточек на мелких экранах */
-                padding: 20px;
+                min-height: 190px;
+                padding: 25px;
             }
             .testimonial-item {
-                min-height: 180px;
+                min-height: 170px;
+            }
+            .faq-question {
+                padding: 15px 18px;
+                font-size: 1rem;
+            }
+            .faq-answer {
+                padding: 0 18px;
+            }
+            .faq-item.active .faq-answer {
+                padding: 15px 18px;
+            }
+            .social-icons a {
+                font-size: 2rem;
+                margin: 0 10px;
             }
         }
     </style>
@@ -767,7 +817,6 @@
                 <ul>
                     <li><a href="#about">Про мене</a></li>
                     <li><a href="#services">Послуги</a></li>
-                    <li><a href="#brands">Бренди</a></li>
                     <li><a href="#philosophy">Моя філософія</a></li>
                     <li><a href="#testimonials">Відгуки</a></li>
                     <li><a href="#faq">FAQ</a></li>
@@ -775,18 +824,16 @@
                 </ul>
             </nav>
         </div>
-        <h1>Alla Shevchuk Make-up</h1>
-        <p>Професійна візажистка у Переяславі — створюємо красу разом!</p>
         <a href="https://www.instagram.com/alla_shevchuk_makeup/" class="btn" target="_blank">Записатися на макіяж</a>
     </header>
 
     <section id="about" class="about">
         <h2 class="section-title">Про мене</h2>
         <div class="about-content">
-            <img src="images/dogukan-sahin-pLvaikQ6dSQ-unsplash.jpg" alt="Красивые косметические средства" style="max-width: 500px;">
+            <img src="images/Алла.jpg" alt="Портрет візажистки Алли Шевчук" style="max-width: 500px;">
             <div class="about-text">
-                <p>Привіт! Я — **Алла Шевчук**, професійна візажистка з Переяслава, з досвідом понад 10 років у світі краси. Моє покликання — не просто наносити макіяж, а підкреслювати вашу **унікальну природну красу** та створювати образи, які ідеально відображатимуть вашу індивідуальність. Я глибоко вірю, що макіяж — це потужний інструмент, що здатен дарувати **впевненість, радість та натхнення**.</p>
-                <p>У своїй роботі я використовую лише **перевірені та якісні косметичні продукти** від світових люксових брендів, забезпечуючи не тільки **бездоганний та стійкий результат**, а й **дбайливе ставлення** до вашої шкіри. Кожен клієнт для мене унікальний, і я прагну створити максимально **комфортну та надихаючу атмосферу** під час сеансу, адже ваші посмішка та задоволення — моя головна нагорода.</p>
+                <p>Привіт! Я — <strong>Алла Шевчук</strong>, професійна візажистка з Переяслава, з досвідом понад 10 років у світі краси. Моє покликання — не просто наносити макіяж, а підкреслити вашу <strong>унікальну природну красу</strong> та створити образи, які ідеально відображатимуть вашу індивідуальність. Я глибоко вірю, що макіяж — це потужний інструмент, що здатен дарувати <strong>впевненість, радість та натхнення</strong>.</p>
+                <p>У своїй роботі я використовую лише <strong>перевірені та якісні косметичні продукти</strong> від світових люксових брендів, забезпечуючи не тільки <strong>бездоганний та стійкий результат</strong>, а й <strong>дбайливе ставлення</strong> до вашої шкіри. Кожен клієнт для мене унікальний, і я прагну створити максимально <strong>комфортну та надихаючу атмосферу</strong> під час сеансу, адже ваша посмішка та задоволення — моя головна нагорода.</p>
             </div>
         </div>
     </section>
@@ -796,65 +843,27 @@
         <div class="services-grid">
             <div class="service-item">
                 <h3>Весільний макіяж</h3>
-                <p>Створення **неповторного та стійкого образу** для нареченої, який ідеально витримає весь святковий день і буде бездоганно виглядати на фото та відео, підкреслюючи вашу ніжність та сяйво.</p>
+                <p>Створення <strong>неповторного та стійкого образу</strong> для нареченої, який ідеально витримає весь святковий день і буде бездоганно виглядати на фото та відео, підкреслюючи вашу ніжність та сяйво.</p>
             </div>
             <div class="service-item">
                 <h3>Макіяж для фотосесій</h3>
-                <p>Спеціалізований макіяж, який **ідеально адаптується до світла камери**, підкреслюючи ваші переваги та забезпечуючи **професійний вигляд** для будь-якого виду зйомки (студійна, виїзна, тематична).</p>
+                <p>Спеціалізований макіяж, який <strong>ідеально адаптується до світла камери</strong>, підкреслюючи ваші переваги та забезпечуючи <strong>професійний вигляд</strong> для будь-якого виду зйомки (студійна, виїзна, тематична).</p>
             </div>
             <div class="service-item">
                 <h3>Денний / Вечірній макіяж</h3>
-                <p>Від **легкого та свіжого денного макіяжу** для природної краси, що підкреслює ваші риси, до **ефектного та виразного вечірнього образу** для особливих подій, корпоративів чи святкових вечірок.</p>
+                <p>Від <strong>легкого та свіжого денного макіяжу</strong> для природної краси, що підкреслює ваші риси, до <strong>ефектного та виразного вечірнього образу</strong> для особливих подій, корпоративів чи святкових вечірок.</p>
             </div>
             <div class="service-item">
                 <h3>Підбір косметики та консультація</h3>
-                <p>Допомога у **виборі якісної косметики**, яка підходить саме вашому типу шкіри та кольоротипу, а також **індивідуальні поради** з догляду за шкірою для щоденного макіяжу та довготривалої краси.</p>
+                <p>Допомога у <strong>виборі якісної косметики</strong>, яка підходить саме вашому типу шкіри та кольоротипу, а також <strong>індивідуальні поради</strong> з догляду за шкірою для щоденного макіяжу та довготривалої краси.</p>
             </div>
             <div class="service-item">
                 <h3>Уроки макіяжу "Для себе"</h3>
-                <p>Індивідуальні заняття, на яких ви навчитеся **професійним технікам макіяжу**, освоїте секрети ідеального тону, контурингу, макіяжу очей та зможете **легко відтворювати їх вдома**.</p>
+                <p>Індивідуальні заняття, на яких ви навчитеся <strong>професійним технікам макіяжу</strong>, освоїте секрети ідеального тону, контурингу, макіяжу очей та зможете <strong>легко відтворювати їх вдома</strong>.</p>
             </div>
             <div class="service-item">
                 <h3>Макіяж для особливих подій</h3>
-                <p>Створення **святкового макіяжу** для випускних вечорів, днів народжень, ювілеїв чи інших важливих моментів вашого життя, щоб ви почувалися **справжньою зіркою**.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="brands" class="brands">
-        <h2 class="section-title">Я працюю з найкращими брендами</h2>
-        <div class="brands-grid">
-            <div class="brand-item">
-                <img src="images/mac_logo.png" alt="MAC Cosmetics">
-                <p>MAC</p>
-            </div>
-            <div class="brand-item">
-                <img src="images/dior_logo.png" alt="Dior Beauty">
-                <p>Dior</p>
-            </div>
-            <div class="brand-item">
-                <img src="images/esteelauder_logo.png" alt="Estee Lauder">
-                <p>Estee Lauder</p>
-            </div>
-            <div class="brand-item">
-                <img src="images/anastasia_logo.png" alt="Anastasia Beverly Hills">
-                <p>Anastasia BH</p>
-            </div>
-            <div class="brand-item">
-                <img src="images/nars_logo.png" alt="NARS Cosmetics">
-                <p>NARS</p>
-            </div>
-            <div class="brand-item">
-                <img src="images/toofaced_logo.png" alt="Too Faced Cosmetics">
-                <p>Too Faced</p>
-            </div>
-             <div class="brand-item">
-                <img src="images/hudabeauty_logo.png" alt="Huda Beauty">
-                <p>Huda Beauty</p>
-            </div>
-             <div class="brand-item">
-                <img src="images/charlottetilbury_logo.png" alt="Charlotte Tilbury">
-                <p>Charlotte Tilbury</p>
+                <p>Створення <strong>святкового макіяжу</strong> для випускних вечорів, днів народжень, ювілеїв чи інших важливих моментів вашого життя, щоб ви почувалися <strong>справжньою зіркою</strong>.</p>
             </div>
         </div>
     </section>
@@ -862,10 +871,10 @@
     <section id="philosophy" class="philosophy">
         <h2 class="section-title">Моя філософія краси</h2>
         <div class="philosophy-content">
-            <img src="images/work6.jpg" alt="Элегантный макияж" style="max-width: 600px;">
+            <img src="images/модель1.png" alt="Витончений макіяж" style="max-width: 600px;">
             <div class="philosophy-text">
-                <p>Я твердо переконана, що **справжня краса йде зсередини**, а макіяж лише допомагає її делікатно підкреслити та розкрити. Моя мета — не змінити вас до невпізнання, а розкрити ваш **унікальний потенціал**, надавши образу вишуканості, елегантності та абсолютної впевненості у собі. Кожен штрих пензля, кожен відтінок пудри підбирається **індивідуально**, щоб створити гармонійний, цілісний та ідеальний образ, який пасуватиме саме вам і вашому настрою.</p>
-                <p>Я постійно **вдосконалюю свої навички**, відвідую майстер-класи, стежу за новими тенденціями та інноваціями в індустрії краси, щоб завжди пропонувати вам **найсучасніші та найефективніші рішення**. Довірте мені свій образ, і ви не лише будете почувати себе неперевершено, але й отримаєте цінні поради щодо догляду за шкірою та нанесення макіяжу, які допоможуть вам підтримувати красу щодня.</p>
+                <p>Я твердо переконана, що <strong>справжня краса йде зсередини</strong>, а макіяж лише допомагає її делікатно підкреслити та розкрити. Моя мета — не змінити вас до невпізнання, а розкрити ваш <strong>унікальний потенціал</strong>, надавши образу вишуканості, елегантності та абсолютної впевненості у собі. Кожен штрих пензля, кожен відтінок пудри підбирається <strong>індивідуально</strong>, щоб створити гармонійний, цілісний та ідеальний образ, який пасуватиме саме вам і вашому настрою.</p>
+                <p>Я постійно <strong>вдосконалюю свої навички</strong>, відвідую майстер-класи, стежу за новими тенденціями та інноваціями в індустрії краси, щоб завжди пропонувати вам <strong>найсучасніші та найефективніші рішення</strong>. Довірте мені свій образ, і ви не лише будете почувати себе неперевершено, але й отримаєте цінні поради щодо догляду за шкірою та нанесення макіяжу, які допоможуть вам підтримувати красу щодня.</p>
             </div>
         </div>
     </section>
@@ -874,7 +883,7 @@
         <h2 class="section-title">Що кажуть мої клієнти</h2>
         <div class="testimonial-grid">
             <div class="testimonial-item">
-                <p>"Алла - справжній професіонал своєї справи! Макіяж тримався ідеально весь день, я почувалася справжньою королевою на своєму весіллі. Дуже рекомендую її послуги!"</p>
+                <p>"Алла — справжній професіонал своєї справи! Макіяж тримався ідеально весь день, я почувалася справжньою королевою на своєму весіллі. Дуже рекомендую її послуги!"</p>
                 <div class="client-name">— Ольга К., Наречена</div>
             </div>
             <div class="testimonial-item">
@@ -900,7 +909,13 @@
                     Скільки часу займає макіяж? <span class="icon"><i class="fas fa-chevron-down"></i></span>
                 </div>
                 <div class="faq-answer">
-                    <p>Зазвичай, **весільний макіяж** займає від 1.5 до 2 годин, враховуючи всі деталі та побажання. **Вечірній макіяж** виконується за 1 - 1.5 години, а для **денного макіяжу** потрібно близько 45-60 хвилин. Тривалість також залежить від складності образу та стану шкіри.</p>
+                    <p>Час залежить від типу макіяжу:</p>
+                    <ul>
+                        <li><strong>Весільний макіяж:</strong> 45 хвилин - 1 година 15 хвилин.</li>
+                        <li><strong>Вечірній макіяж:</strong> 30 - 45 хвилин.</li>
+                        <li><strong>Денний макіяж:</strong> 15 - 30 хвилин.</li>
+                    </ul>
+                    <p>Я завжди працюю ефективно, не жертвуючи якістю.</p>
                 </div>
             </div>
             <div class="faq-item">
@@ -908,15 +923,13 @@
                     Чи робите ви пробний весільний макіяж? <span class="icon"><i class="fas fa-chevron-down"></i></span>
                 </div>
                 <div class="faq-answer">
-                    <p>Так, **пробний макіяж є обов'язковою частиною весільного пакета** і дуже рекомендований. Це дозволяє нам детально обговорити всі ваші побажання, протестувати косметику на шкірі, внести корективи та переконатися, що у ваш важливий день ви будете виглядати ідеально, без зайвих стресів.</p>
-                </div>
-            </div>
-            <div class="faq-item">
-                <div class="faq-question">
-                    Якими косметичними брендами ви користуєтесь? <span class="icon"><i class="fas fa-chevron-down"></i></span>
-                </div>
-                <div class="faq-answer">
-                    <p>Я працюю виключно з **професійною та люксовою косметикою** перевірених світових брендів, які зарекомендували себе як найкращі за якістю та стійкістю. Серед них: **MAC, Dior, Estee Lauder, Anastasia Beverly Hills, NARS, Too Faced, Huda Beauty, Charlotte Tilbury** та багато інших. Це гарантує бездоганний результат та безпеку для вашої шкіри.</p>
+                    <p>Так, <strong>пробний макіяж рекомендований для наречених.</strong> Він дозволяє:</p>
+                    <ul>
+                        <li>Детально підібрати образ під ваш стиль і сукню.</li>
+                        <li>Протестувати косметику на шкірі.</li>
+                        <li>Внести корективи для вашої абсолютної впевненості у день весілля.</li>
+                    </ul>
+                    <p>Це гарантує ваш спокій та бездоганний результат.</p>
                 </div>
             </div>
             <div class="faq-item">
@@ -924,7 +937,13 @@
                     Як записатися на макіяж? <span class="icon"><i class="fas fa-chevron-down"></i></span>
                 </div>
                 <div class="faq-answer">
-                    <p>Ви можете записатися на макіяж, зателефонувавши мені за номером **+38 (063) 987 10 00** або написавши повідомлення в **Instagram Direct** за посиланням: <a href="https://www.instagram.com/alla_shevchuk_makeup/" target="_blank">@alla_shevchuk_makeup</a>. Буду рада відповісти на всі ваші запитання та підібрати зручний час для візиту!</p>
+                    <p>Записатися просто! Зв'яжіться зі мною:</p>
+                    <ul>
+                        <li>За телефоном: <strong><a href="tel:+380639871000">+38 (063) 987 10 00</a></strong></li>
+                        <li>В <strong>Instagram Direct</strong>: <a href="https://www.instagram.com/alla_shevchuk_makeup/" target="_blank">@alla_shevchuk_makeup</a></li>
+                        <li>Або через інші месенджери (посилання в розділі "Контакти").</li>
+                    </ul>
+                    <p>Буду рада відповісти та підібрати зручний час!</p>
                 </div>
             </div>
         </div>
@@ -942,7 +961,7 @@
             <a href="#" target="_blank" aria-label="Telegram"><i class="fab fa-telegram-plane"></i></a>
             <a href="#" target="_blank" aria-label="Viber"><i class="fab fa-viber"></i></a>
         </div>
-        <a href="https://www.instagram.com/alla_shevchuk_makeup/" class="btn" target="_blank" style="margin-top: 50px;">Записатися зараз!</a>
+        <a href="https://www.instagram.com/alla_shevchuk_makeup/" class="btn" target="_blank" style="margin-top: 50px; position: static; transform: none; bottom: auto; left: auto;">Записатися зараз!</a>
     </section>
 
     <footer>
@@ -951,23 +970,19 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', () => {
-            // JavaScript для анимации секций при прокрутке
             const sections = document.querySelectorAll('section');
             const observer = new IntersectionObserver((entries) => {
                 entries.forEach(entry => {
                     if (entry.isIntersecting) {
                         entry.target.classList.add('is-visible');
-                        // Если это секция, запускаем анимацию для заголовка
                         const title = entry.target.querySelector('.section-title');
                         if (title) {
-                            // Сброс анимации для возможности повторного запуска
+                            // Reset animation to re-trigger it on scroll
                             title.style.animation = 'none';
-                            void title.offsetWidth; // Триггер рефлоу
-                            title.style.animation = null; // Применить анимацию
+                            void title.offsetWidth; // Trigger reflow
+                            title.style.animation = null; // Remove 'none' to allow animation
                         }
-                        // observer.unobserve(entry.target); // Удалена, чтобы анимация появлялась каждый раз при скролле. Если нужно только один раз, раскомментируйте.
                     } else {
-                        // Скрыть секцию, когда она выходит из зоны видимости
                         entry.target.classList.remove('is-visible');
                     }
                 });
@@ -977,14 +992,13 @@
                 observer.observe(section);
             });
 
-            // JavaScript для FAQ (аккордеон)
             const faqQuestions = document.querySelectorAll('.faq-question');
             faqQuestions.forEach(question => {
                 question.addEventListener('click', () => {
                     const faqItem = question.closest('.faq-item');
                     const answer = faqItem.querySelector('.faq-answer');
 
-                    // Закрыть все остальные открытые ответы
+                    // Close other open FAQ items
                     document.querySelectorAll('.faq-item.active').forEach(item => {
                         if (item !== faqItem) {
                             item.classList.remove('active');
@@ -992,9 +1006,9 @@
                         }
                     });
 
-                    // Открыть или закрыть текущий
                     faqItem.classList.toggle('active');
                     if (faqItem.classList.contains('active')) {
+                        // Set max-height based on scrollHeight to reveal full content
                         answer.style.maxHeight = answer.scrollHeight + "px";
                     } else {
                         answer.style.maxHeight = "0";
@@ -1002,7 +1016,6 @@
                 });
             });
 
-            // JavaScript для Navbar (изменение фона при скролле)
             const navbar = document.querySelector('.navbar');
             window.addEventListener('scroll', () => {
                 if (window.scrollY > 50) {
@@ -1012,33 +1025,33 @@
                 }
             });
 
-            // JavaScript для мобильного меню (бургер)
             const menuToggle = document.querySelector('.menu-toggle');
             const navUl = document.querySelector('.navbar nav ul');
 
             menuToggle.addEventListener('click', () => {
                 navUl.classList.toggle('active');
-                // Изменить иконку бургера
                 if (navUl.classList.contains('active')) {
                     menuToggle.querySelector('i').classList.remove('fa-bars');
-                    menuToggle.querySelector('i').classList.add('fa-times'); // Крестик
+                    menuToggle.querySelector('i').classList.add('fa-times');
+                    document.body.style.overflow = 'hidden'; // Prevent scrolling when mobile menu is open
                 } else {
                     menuToggle.querySelector('i').classList.remove('fa-times');
-                    menuToggle.querySelector('i').classList.add('fa-bars'); // Бургер
+                    menuToggle.querySelector('i').classList.add('fa-bars');
+                    document.body.style.overflow = ''; // Restore scrolling
                 }
             });
 
-            // Закрывать меню при клике на ссылку в мобильной версии
             navUl.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     if (navUl.classList.contains('active')) {
                         navUl.classList.remove('active');
                         menuToggle.querySelector('i').classList.remove('fa-times');
                         menuToggle.querySelector('i').classList.add('fa-bars');
+                        document.body.style.overflow = ''; // Restore scrolling after clicking link in mobile menu
                     }
                 });
             });
         });
     </script>
 </body>
-</html> 
+</html>
