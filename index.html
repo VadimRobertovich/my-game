@@ -6,52 +6,35 @@
     <meta name="description" content="Професійна візажистка у Переяславі — Alla Shevchuk Make-up. Запис на макіяж для фотосесій, весіль та інших подій, поради з краси.">
     <meta property="og:title" content="Alla Shevchuk Make-up | Професійний візажист у Переяславі">
     <meta property="og:description" content="Досвідчений візажист Алла Шевчук у Переяславі. Весільний, вечірній макіяж, макіяж для фотосесій. Секрети краси та поради.">
-    <meta property="og:image" content="images/preview.jpg">
+    <meta property="og:image" content="images/baner1.png">
     <link rel="icon" href="images/favicon.ico" type="image/x-icon">
     <title>Alla Shevchuk Make-up | Ваш ідеальний образ</title>
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
         :root {
-            /* Оновлена, більш витончена палітра */
-            --primary-accent: #7C2A48; /* Глибокий, насичений винний */
-            --primary-accent-dark: #6C243F; /* Темніший відтінок для ховеру */
-            --text-dark: #333333; /* М'який темно-сірий */
-            --text-light: #666666; /* Середній сірий для додаткового тексту */
-            --bg-light: #F9F9F9; /* Дуже світлий, майже білий фон, трохи тепліший */
-            --bg-section: #FFFFFF; /* Чистий білий фон для основних секцій - буде перекриватися фоновим зображенням */
-            --header-text-color: #FFFFFF; /* Білий для тексту в хедері */
-
-            --soft-border: #EBEBEB; /* Дуже світлий сірий для ліній */
-            --light-bg-card: #FCFCFC; /* Ледь помітний відтінок для карток */
-
-            /* Шрифти */
+            --primary-accent: #7C2A48;
+            --primary-accent-dark: #6C243F;
+            --text-dark: #333333;
+            --text-light: #666666;
+            --bg-light: #F9F9F9;
+            --header-text-color: #FFFFFF;
+            --soft-border: #EBEBEB;
+            --light-bg-card: rgba(255,255,255,0.92);
             --font-display: 'Cormorant Garamond', serif;
             --font-body: 'Montserrat', sans-serif;
-
-            /* Відступи */
             --section-padding-desktop: 120px 40px;
             --section-padding-mobile: 80px 20px;
-
-            /* Тіні */
             --shadow-subtle: 0 8px 30px rgba(0, 0, 0, 0.04);
             --shadow-hover: 0 15px 45px rgba(0, 0, 0, 0.08);
         }
 
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
-
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        html { scroll-behavior: smooth; }
         body {
             font-family: var(--font-body);
             color: var(--text-dark);
-            background-color: var(--bg-light);
+            background: url('images/fon.jpg') center top/cover no-repeat fixed, var(--bg-light);
             line-height: 1.7;
             letter-spacing: 0.02em;
             overflow-x: hidden;
@@ -59,19 +42,19 @@
 
         /* --- Header & Navigation --- */
         header {
-            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('images/баннер1.png') center/cover no-repeat fixed;
+            background: linear-gradient(rgba(0, 0, 0, 0.65), rgba(0, 0, 0, 0.65)), url('images/baner1.png') center/cover no-repeat fixed;
             height: 100vh;
             color: var(--header-text-color);
             text-align: center;
             display: flex;
             flex-direction: column;
-            justify-content: flex-end; /* Вирівнює вміст до низу */
+            justify-content: flex-end;
             align-items: center;
             animation: fadeIn 2s ease-in-out;
-            position: relative; /* Важливо для абсолютного позиціонування кнопки */
+            position: relative;
             overflow: hidden;
             padding: 20px;
-            padding-bottom: 80px; /* Зменшуємо відступ, так як кнопка буде позиціонуватися абсолютно */
+            padding-bottom: 80px;
         }
 
         .navbar {
@@ -79,18 +62,16 @@
             top: 0;
             left: 0;
             width: 100%;
-            background-color: rgba(0, 0, 0, 0.85); /* Трохи світліше, але все ще темний */
+            background-color: rgba(0, 0, 0, 0.85);
             padding: 1rem 0;
             z-index: 1000;
             box-shadow: 0 2px 15px rgba(0, 0, 0, 0.5);
             transition: background-color 0.3s ease, padding 0.3s ease;
         }
-
         .navbar.scrolled {
             background-color: rgba(0, 0, 0, 0.95);
             padding: 0.7rem 0;
         }
-
         .navbar nav ul {
             list-style: none;
             display: flex;
@@ -99,7 +80,6 @@
             margin: 0;
             padding: 0;
         }
-
         .navbar nav a {
             color: var(--header-text-color);
             text-decoration: none;
@@ -110,7 +90,6 @@
             letter-spacing: 0.06em;
             text-transform: uppercase;
         }
-
         .navbar nav a::after {
             content: '';
             position: absolute;
@@ -122,15 +101,8 @@
             transform: translateX(-50%);
             transition: width 0.3s ease;
         }
-
-        .navbar nav a:hover::after {
-            width: 100%;
-        }
-
-        .navbar nav a:hover {
-            color: var(--primary-accent);
-        }
-
+        .navbar nav a:hover::after { width: 100%; }
+        .navbar nav a:hover { color: var(--primary-accent); }
         .menu-toggle {
             display: none;
             position: absolute;
@@ -144,30 +116,28 @@
             cursor: pointer;
             z-index: 1100;
         }
-
         .btn {
             background: var(--primary-accent);
             color: var(--header-text-color);
-            padding: 1.2rem 3rem; /* Зменшення розміру кнопки */
+            padding: 1.2rem 3rem;
             border: none;
-            border-radius: 8px; /* Менший радіус для більш сучасної форми */
+            border-radius: 8px;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.4s ease;
             animation: fadeIn 2s ease-in-out;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3); /* Делікатніша тінь */
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
             display: inline-block;
-            font-size: 1.1rem; /* Трохи менший шрифт */
+            font-size: 1.1rem;
             text-transform: uppercase;
-            letter-spacing: 0.08em; /* Трохи менший інтервал */
-            position: absolute; /* Абсолютне позиціонування */
-            bottom: 40px; /* Відступ від низу хедера */
+            letter-spacing: 0.08em;
+            position: absolute;
+            bottom: 40px;
             left: 50%;
-            transform: translateX(-50%); /* Центруємо кнопку */
+            transform: translateX(-50%);
             overflow: hidden;
-            z-index: 10; /* Переконаємося, що кнопка поверх інших елементів */
+            z-index: 10;
         }
-
         .btn::before {
             content: '';
             position: absolute;
@@ -175,19 +145,15 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent); /* Більш делікатний блиск */
+            background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
             transition: all 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
             z-index: -1;
         }
-
-        .btn:hover::before {
-            left: 100%;
-        }
-
+        .btn:hover::before { left: 100%; }
         .btn:hover {
             background: var(--primary-accent-dark);
-            transform: translateY(-8px) scale(1.04) translateX(-50%); /* Зберігаємо центрування */
-            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4); /* Делікатніша тінь при ховері */
+            transform: translateY(-8px) scale(1.04) translateX(-50%);
+            box-shadow: 0 18px 40px rgba(0, 0, 0, 0.4);
         }
 
         /* --- Global Section Styles --- */
@@ -198,54 +164,19 @@
             opacity: 0;
             transform: translateY(70px);
             transition: opacity 1s ease-out, transform 1s ease-out;
-            /* background-color: var(--bg-section); */ /* Це буде перекриватися фоновим зображенням */
-            border-radius: 18px; /* Трохи більші округлення */
+            border-radius: 18px;
             box-shadow: var(--shadow-subtle);
             position: relative;
             overflow: hidden;
             border-top: 1px solid var(--soft-border);
-            /* Додаємо базовий фон для розділів, якщо не вказано специфічного фону */
-            background-color: var(--bg-section); /* Ви можете залишити це як запасний варіант */
-            background-repeat: no-repeat;
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed; /* Для ефекту паралаксу */
+            background: var(--light-bg-card);
+            backdrop-filter: blur(2px);
         }
-
-        /* Стилі для фонових зображень розділів */
-        #about {
-            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('images/background-about.jpg') center/cover fixed;
-        }
-
-        #services {
-            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('images/background-services.jpg') center/cover fixed;
-        }
-
-        #philosophy {
-            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('images/background-philosophy.jpg') center/cover fixed;
-        }
-
-        #testimonials {
-            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('images/background-testimonials.jpg') center/cover fixed;
-        }
-
-        #faq {
-            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('images/background-faq.jpg') center/cover fixed;
-        }
-
-        #contact {
-            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)), url('images/background-contact.jpg') center/cover fixed;
-        }
-
-        section:last-of-type {
-            margin-bottom: 0;
-        }
-
+        section:last-of-type { margin-bottom: 0; }
         section.is-visible {
             opacity: 1;
             transform: translateY(0);
         }
-
         .section-title {
             text-align: center;
             font-family: var(--font-display);
@@ -254,10 +185,9 @@
             color: var(--primary-accent);
             position: relative;
             text-transform: uppercase;
-            letter-spacing: 0.08em; /* Трохи менший інтервал для витонченості */
+            letter-spacing: 0.08em;
             font-weight: 700;
         }
-
         .section-title::after {
             content: '';
             display: block;
@@ -270,11 +200,7 @@
             animation: expandLine 1s forwards cubic-bezier(0.25, 0.46, 0.45, 0.94);
         }
 
-        /* --- About Section Specifics --- */
-        .about .section-title {
-            color: var(--primary-accent);
-        }
-
+        /* --- About Section --- */
         .about-content {
             display: flex;
             flex-direction: row;
@@ -311,18 +237,13 @@
             font-weight: 600;
         }
 
-        /* --- Services Section Specifics --- */
-        .services .section-title {
-            color: var(--primary-accent);
-        }
-
+        /* --- Services Section --- */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
             gap: 50px;
             margin-top: 50px;
         }
-
         .service-item {
             background-color: var(--light-bg-card);
             padding: 40px;
@@ -338,18 +259,11 @@
             min-height: 260px;
             border: 1px solid var(--soft-border);
         }
-
         .service-item:hover {
-            transform: translateY(-8px); /* Зменшена інтенсивність анімації */
+            transform: translateY(-8px);
             box-shadow: var(--shadow-hover);
         }
-
-        .service-item h3, .service-item p {
-            position: relative;
-            z-index: 1;
-            transition: color 0.3s ease;
-        }
-
+        .service-item h3, .service-item p { position: relative; z-index: 1; transition: color 0.3s ease; }
         .service-item h3 {
             font-family: var(--font-display);
             font-size: 2.3rem;
@@ -357,24 +271,15 @@
             margin-bottom: 20px;
             letter-spacing: 0.05em;
         }
-
         .service-item p {
             color: var(--text-dark);
             font-size: 1.08rem;
             margin-bottom: 0;
             line-height: 1.6;
         }
+        .service-item p strong { color: var(--text-dark); }
 
-        .service-item p strong {
-            color: var(--text-dark);
-        }
-
-
-        /* --- Philosophy Section Specifics --- */
-        .philosophy .section-title {
-            color: var(--primary-accent);
-        }
-
+        /* --- Philosophy Section --- */
         .philosophy-content {
             display: flex;
             flex-direction: row-reverse;
@@ -411,12 +316,7 @@
             font-weight: 600;
         }
 
-
-        /* --- Testimonials Section Specifics --- */
-        .testimonials .section-title {
-            color: var(--primary-accent);
-        }
-
+        /* --- Testimonials Section --- */
         .testimonial-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
@@ -438,7 +338,7 @@
             border: 1px solid var(--soft-border);
         }
         .testimonial-item:hover {
-            transform: translateY(-8px); /* Зменшена інтенсивність анімації */
+            transform: translateY(-8px);
             box-shadow: var(--shadow-hover);
         }
         .testimonial-item p {
@@ -457,14 +357,8 @@
             letter-spacing: 0.03em;
         }
 
-        /* --- FAQ Section Specifics --- */
-        .faq .section-title {
-            color: var(--primary-accent);
-        }
-
-        .faq-container {
-            margin-top: 50px;
-        }
+        /* --- FAQ Section --- */
+        .faq-container { margin-top: 50px; }
         .faq-item {
             background-color: var(--light-bg-card);
             margin-bottom: 25px;
@@ -491,9 +385,7 @@
             background-color: var(--primary-accent);
             color: white;
         }
-        .faq-question:hover .icon {
-            color: white;
-        }
+        .faq-question:hover .icon { color: white; }
         .faq-question .icon {
             font-size: 1.5rem;
             color: var(--text-dark);
@@ -502,23 +394,18 @@
         .faq-answer {
             padding: 0 30px;
             max-height: 0;
-            overflow: hidden; /* This is controlled by JS. */
-            overflow-y: auto; /* Додано для прокрутки, якщо вміст більший за max-height */
+            overflow: hidden;
+            overflow-y: auto;
             transition: max-height 0.5s ease-in-out, padding 0.5s ease-in-out;
             background-color: var(--light-bg-card);
             color: var(--text-dark);
             font-size: 1.08rem;
             line-height: 1.7;
         }
-        .faq-answer p {
-            margin-bottom: 1.2em;
-            color: inherit;
-        }
-        .faq-answer p:last-child {
-            margin-bottom: 0;
-        }
+        .faq-answer p { margin-bottom: 1.2em; color: inherit; }
+        .faq-answer p:last-child { margin-bottom: 0; }
         .faq-item.active .faq-answer {
-            max-height: 9999px; /* Встановлено дуже велике значення як CSS fallback */
+            max-height: 9999px;
             padding: 20px 30px;
         }
         .faq-item.active .faq-question {
@@ -531,8 +418,7 @@
             color: white;
         }
 
-
-        /* --- Contact Section Specifics --- */
+        /* --- Contact Section --- */
         .contact-info {
             display: flex;
             flex-direction: column;
@@ -540,7 +426,6 @@
             gap: 30px;
             margin-bottom: 50px;
         }
-
         .contact-info p {
             font-size: 1.25rem;
             color: var(--text-dark);
@@ -562,10 +447,7 @@
             color: var(--primary-accent);
             text-decoration: underline;
         }
-
-        .social-icons {
-            margin-top: 40px;
-        }
+        .social-icons { margin-top: 40px; }
         .social-icons a {
             font-size: 3.2rem;
             color: var(--primary-accent-dark);
@@ -587,70 +469,44 @@
             margin-top: 100px;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
-
         footer a {
             color: var(--primary-accent);
             text-decoration: none;
             transition: color 0.3s ease;
         }
-
-        footer a:hover {
-            color: var(--primary-accent-dark);
-        }
+        footer a:hover { color: var(--primary-accent-dark); }
 
         /* --- Animations --- */
         @keyframes fadeInDown {
             0% { opacity: 0; transform: translateY(-50px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-
         @keyframes fadeInUp {
             0% { opacity: 0; transform: translateY(50px); }
             100% { opacity: 1; transform: translateY(0); }
         }
-
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         @keyframes expandLine {
             0% { width: 0; transform: translateX(-50%) scaleX(0); }
             100% { width: 100px; transform: translateX(-50%) scaleX(1); }
         }
 
-
         /* --- Media Queries for Responsiveness --- */
         @media (max-width: 992px) {
-            header {
-                padding-bottom: 60px; /* Змінюємо відступ для мобільних */
-            }
-            .navbar nav ul {
-                gap: 2.5rem;
-            }
-            .section-title {
-                font-size: 3.5rem;
-                margin-bottom: 50px;
-            }
+            header { padding-bottom: 60px; }
+            .navbar nav ul { gap: 2.5rem; }
+            .section-title { font-size: 3.5rem; margin-bottom: 50px; }
             .about-content, .philosophy-content {
                 flex-direction: column;
                 gap: 40px;
                 text-align: center;
             }
-            .about-content img, .philosophy-content img {
-                max-width: 90%;
-            }
-            .about-text, .philosophy-text {
-                max-width: 100%;
-                text-align: center;
-            }
+            .about-content img, .philosophy-content img { max-width: 90%; }
+            .about-text, .philosophy-text { max-width: 100%; text-align: center; }
             .services-grid, .testimonial-grid {
                 grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
             }
-            section {
-                padding: var(--section-padding-mobile);
-                margin-bottom: 80px;
-            }
+            section { padding: var(--section-padding-mobile); margin-bottom: 80px; }
             .navbar nav ul {
                 display: none;
                 flex-direction: column;
@@ -672,142 +528,52 @@
                 opacity: 1;
                 pointer-events: auto;
             }
-            .navbar nav li {
-                margin: 10px 0;
-            }
-            .navbar nav a {
-                display: block;
-                padding: 10px 0;
-                font-size: 1.2rem;
-            }
-            .menu-toggle {
-                display: block;
-            }
-            header {
-                background-attachment: scroll;
-            }
+            .navbar nav li { margin: 10px 0; }
+            .navbar nav a { display: block; padding: 10px 0; font-size: 1.2rem; }
+            .menu-toggle { display: block; }
+            header { background-attachment: scroll; }
             .btn {
-                bottom: 30px; /* Зменшуємо відступ від низу хедера на мобільних */
-                padding: 1rem 2.5rem; /* Зменшення розміру кнопки */
+                bottom: 30px;
+                padding: 1rem 2.5rem;
                 font-size: 1rem;
             }
-
-            /* Медіа-запити для фонів розділів на мобільних */
-            #about, #services, #philosophy, #testimonials, #faq, #contact {
-                background-attachment: scroll; /* Змінюємо на scroll для кращої продуктивності на мобільних */
-            }
         }
-
         @media (max-width: 768px) {
-            header {
-                padding-bottom: 50px;
-            }
-            .navbar {
-                padding: 0.8rem 0;
-            }
-            .navbar.scrolled {
-                padding: 0.6rem 0;
-            }
-            .navbar nav a {
-                font-size: 1rem;
-            }
-            .btn {
-                bottom: 25px;
-                padding: 0.9rem 2.2rem;
-                font-size: 0.95rem;
-            }
-            .section-title {
-                font-size: 2.8rem;
-                margin-bottom: 40px;
-            }
-            .about-content img, .philosophy-content img {
-                max-width: 100%;
-            }
-            .about-content p, .philosophy-content p, .service-item p, .testimonial-item p, .faq-answer p {
-                font-size: 1rem;
-            }
-            .service-item h3 {
-                font-size: 2rem;
-            }
-            .testimonial-item {
-                padding: 30px;
-                min-height: 210px;
-            }
-            .faq-question {
-                font-size: 1.08rem;
-                padding: 18px 25px;
-            }
-            .faq-answer {
-                padding: 0 25px;
-            }
-            .faq-item.active .faq-answer {
-                padding: 18px 25px;
-            }
-            .contact-info p {
-                font-size: 1.1rem;
-            }
-            .contact-info p i {
-                font-size: 1.4rem;
-            }
-            .social-icons a {
-                font-size: 2.5rem;
-                margin: 0 15px;
-            }
-            section {
-                padding: var(--section-padding-mobile);
-                margin-bottom: 60px;
-            }
-            footer {
-                padding: 30px;
-                font-size: 0.9rem;
-            }
+            header { padding-bottom: 50px; }
+            .navbar { padding: 0.8rem 0; }
+            .navbar.scrolled { padding: 0.6rem 0; }
+            .navbar nav a { font-size: 1rem; }
+            .btn { bottom: 25px; padding: 0.9rem 2.2rem; font-size: 0.95rem; }
+            .section-title { font-size: 2.8rem; margin-bottom: 40px; }
+            .about-content img, .philosophy-content img { max-width: 100%; }
+            .about-content p, .philosophy-content p, .service-item p, .testimonial-item p, .faq-answer p { font-size: 1rem; }
+            .service-item h3 { font-size: 2rem; }
+            .testimonial-item { padding: 30px; min-height: 210px; }
+            .faq-question { font-size: 1.08rem; padding: 18px 25px; }
+            .faq-answer { padding: 0 25px; }
+            .faq-item.active .faq-answer { padding: 18px 25px; }
+            .contact-info p { font-size: 1.1rem; }
+            .contact-info p i { font-size: 1.4rem; }
+            .social-icons a { font-size: 2.5rem; margin: 0 15px; }
+            section { padding: var(--section-padding-mobile); margin-bottom: 60px; }
+            footer { padding: 30px; font-size: 0.9rem; }
         }
-
         @media (max-width: 480px) {
-            header {
-                padding-bottom: 40px;
-            }
-            .btn {
-                bottom: 20px;
-                padding: 0.8rem 2rem;
-                font-size: 0.9rem;
-            }
-            .section-title {
-                font-size: 2.2rem;
-            }
-            .navbar nav ul {
-                gap: 1.5rem;
-                padding: 1rem 0;
-            }
-            .navbar nav a {
-                font-size: 1.1rem;
-            }
-            .service-item {
-                min-height: 190px;
-                padding: 25px;
-            }
-            .testimonial-item {
-                min-height: 170px;
-            }
-            .faq-question {
-                padding: 15px 18px;
-                font-size: 1rem;
-            }
-            .faq-answer {
-                padding: 0 18px;
-            }
-            .faq-item.active .faq-answer {
-                padding: 15px 18px;
-            }
-            .social-icons a {
-                font-size: 2rem;
-                margin: 0 10px;
-            }
+            header { padding-bottom: 40px; }
+            .btn { bottom: 20px; padding: 0.8rem 2rem; font-size: 0.9rem; }
+            .section-title { font-size: 2.2rem; }
+            .navbar nav ul { gap: 1.5rem; padding: 1rem 0; }
+            .navbar nav a { font-size: 1.1rem; }
+            .service-item { min-height: 190px; padding: 25px; }
+            .testimonial-item { min-height: 170px; }
+            .faq-question { padding: 15px 18px; font-size: 1rem; }
+            .faq-answer { padding: 0 18px; }
+            .faq-item.active .faq-answer { padding: 15px 18px; }
+            .social-icons a { font-size: 2rem; margin: 0 10px; }
         }
     </style>
 </head>
 <body>
-
     <header>
         <div class="navbar">
             <button class="menu-toggle" aria-label="Toggle navigation">
@@ -830,7 +596,7 @@
     <section id="about" class="about">
         <h2 class="section-title">Про мене</h2>
         <div class="about-content">
-            <img src="images/Алла.jpg" alt="Портрет візажистки Алли Шевчук" style="max-width: 500px;">
+            <img src="images/alla.jpg" alt="Портрет візажистки Алли Шевчук" style="max-width: 500px;">
             <div class="about-text">
                 <p>Привіт! Я — <strong>Алла Шевчук</strong>, професійна візажистка з Переяслава, з досвідом понад 10 років у світі краси. Моє покликання — не просто наносити макіяж, а підкреслити вашу <strong>унікальну природну красу</strong> та створити образи, які ідеально відображатимуть вашу індивідуальність. Я глибоко вірю, що макіяж — це потужний інструмент, що здатен дарувати <strong>впевненість, радість та натхнення</strong>.</p>
                 <p>У своїй роботі я використовую лише <strong>перевірені та якісні косметичні продукти</strong> від світових люксових брендів, забезпечуючи не тільки <strong>бездоганний та стійкий результат</strong>, а й <strong>дбайливе ставлення</strong> до вашої шкіри. Кожен клієнт для мене унікальний, і я прагну створити максимально <strong>комфортну та надихаючу атмосферу</strong> під час сеансу, адже ваша посмішка та задоволення — моя головна нагорода.</p>
@@ -871,7 +637,7 @@
     <section id="philosophy" class="philosophy">
         <h2 class="section-title">Моя філософія краси</h2>
         <div class="philosophy-content">
-            <img src="images/модель1.png" alt="Витончений макіяж" style="max-width: 600px;">
+            <img src="images/model1.png" alt="Витончений макіяж" style="max-width: 600px;">
             <div class="philosophy-text">
                 <p>Я твердо переконана, що <strong>справжня краса йде зсередини</strong>, а макіяж лише допомагає її делікатно підкреслити та розкрити. Моя мета — не змінити вас до невпізнання, а розкрити ваш <strong>унікальний потенціал</strong>, надавши образу вишуканості, елегантності та абсолютної впевненості у собі. Кожен штрих пензля, кожен відтінок пудри підбирається <strong>індивідуально</strong>, щоб створити гармонійний, цілісний та ідеальний образ, який пасуватиме саме вам і вашому настрою.</p>
                 <p>Я постійно <strong>вдосконалюю свої навички</strong>, відвідую майстер-класи, стежу за новими тенденціями та інноваціями в індустрії краси, щоб завжди пропонувати вам <strong>найсучасніші та найефективніші рішення</strong>. Довірте мені свій образ, і ви не лише будете почувати себе неперевершено, але й отримаєте цінні поради щодо догляду за шкірою та нанесення макіяжу, які допоможуть вам підтримувати красу щодня.</p>
@@ -977,10 +743,9 @@
                         entry.target.classList.add('is-visible');
                         const title = entry.target.querySelector('.section-title');
                         if (title) {
-                            // Reset animation to re-trigger it on scroll
                             title.style.animation = 'none';
-                            void title.offsetWidth; // Trigger reflow
-                            title.style.animation = null; // Remove 'none' to allow animation
+                            void title.offsetWidth;
+                            title.style.animation = null;
                         }
                     } else {
                         entry.target.classList.remove('is-visible');
@@ -988,27 +753,21 @@
                 });
             }, { threshold: 0.15 });
 
-            sections.forEach(section => {
-                observer.observe(section);
-            });
+            sections.forEach(section => { observer.observe(section); });
 
             const faqQuestions = document.querySelectorAll('.faq-question');
             faqQuestions.forEach(question => {
                 question.addEventListener('click', () => {
                     const faqItem = question.closest('.faq-item');
                     const answer = faqItem.querySelector('.faq-answer');
-
-                    // Close other open FAQ items
                     document.querySelectorAll('.faq-item.active').forEach(item => {
                         if (item !== faqItem) {
                             item.classList.remove('active');
                             item.querySelector('.faq-answer').style.maxHeight = "0";
                         }
                     });
-
                     faqItem.classList.toggle('active');
                     if (faqItem.classList.contains('active')) {
-                        // Set max-height based on scrollHeight to reveal full content
                         answer.style.maxHeight = answer.scrollHeight + "px";
                     } else {
                         answer.style.maxHeight = "0";
@@ -1027,27 +786,25 @@
 
             const menuToggle = document.querySelector('.menu-toggle');
             const navUl = document.querySelector('.navbar nav ul');
-
             menuToggle.addEventListener('click', () => {
                 navUl.classList.toggle('active');
                 if (navUl.classList.contains('active')) {
                     menuToggle.querySelector('i').classList.remove('fa-bars');
                     menuToggle.querySelector('i').classList.add('fa-times');
-                    document.body.style.overflow = 'hidden'; // Prevent scrolling when mobile menu is open
+                    document.body.style.overflow = 'hidden';
                 } else {
                     menuToggle.querySelector('i').classList.remove('fa-times');
                     menuToggle.querySelector('i').classList.add('fa-bars');
-                    document.body.style.overflow = ''; // Restore scrolling
+                    document.body.style.overflow = '';
                 }
             });
-
             navUl.querySelectorAll('a').forEach(link => {
                 link.addEventListener('click', () => {
                     if (navUl.classList.contains('active')) {
                         navUl.classList.remove('active');
                         menuToggle.querySelector('i').classList.remove('fa-times');
                         menuToggle.querySelector('i').classList.add('fa-bars');
-                        document.body.style.overflow = ''; // Restore scrolling after clicking link in mobile menu
+                        document.body.style.overflow = '';
                     }
                 });
             });
